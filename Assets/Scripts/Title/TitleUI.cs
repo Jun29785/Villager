@@ -10,6 +10,7 @@ public class TitleUI : MonoBehaviour
     public TextMeshProUGUI loadingText;
     public GameObject TapToStart;
     public Slider loadingBar;
+    public TextMeshProUGUI InputName;
 
     public void SetLoadStateDescription(IntroPhase loadState)
     {
@@ -51,5 +52,19 @@ public class TitleUI : MonoBehaviour
         {
             TapToStart.SetActive(true);
         }
+    }
+
+    public void SumitNameInput()
+    {
+        if (InputName.text.Length < 3)
+        {
+            // Warn Text : "닉네임은 3글자 이상이어야 됩니다.
+            return;
+        }
+        var user = UserDataManager.Instance;
+        user.userData.UserName = InputName.text;
+        user.NameInput.SetActive(false);
+        StartCoroutine(user.SaveData());
+        TapToStart.SetActive(true);
     }
 }
