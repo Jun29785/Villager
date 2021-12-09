@@ -12,6 +12,14 @@ public class TitleUI : MonoBehaviour
     public Slider loadingBar;
     public TextMeshProUGUI InputName;
 
+    private bool HasName = false;
+
+    private void Update()
+    {
+        Debug.Log("HasName : " + HasName);
+        if(TitleController.allLoaded && HasName) { TapToStart.SetActive(true); }
+    }
+
     public void SetLoadStateDescription(IntroPhase loadState)
     {
         switch (loadState)
@@ -30,6 +38,7 @@ public class TitleUI : MonoBehaviour
                 break;
             case IntroPhase.Complete:
                 loadingText.text = "Complete";
+                HasName = true;
                 break;
             default:
                 break;
@@ -65,6 +74,6 @@ public class TitleUI : MonoBehaviour
         user.userData.UserName = InputName.text;
         user.NameInput.SetActive(false);
         StartCoroutine(user.SaveData());
-        TapToStart.SetActive(true);
+        HasName = true;
     }
 }

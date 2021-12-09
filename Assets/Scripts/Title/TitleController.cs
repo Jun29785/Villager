@@ -19,7 +19,7 @@ public class TitleController : MonoBehaviour
         }
     }
 
-    private bool allLoaded;
+    public static bool allLoaded;
 
     IntroPhase phase = IntroPhase.Start;
 

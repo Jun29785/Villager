@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,13 +66,12 @@ public class Objectpool : MonoBehaviour
 
     private void Initialize(int count)
     {
-       
+        CreateNewGoblins();
     }
 
     /// <summary>
-    /// ìƒˆë¡œìš´ ê°ì²´ ë§Œë“¤ê¸°
+    /// »õ·Î¿î °´Ã¼ ¸¸µé±â
     /// </summary>
-    /// <returns>ë§Œë“¤ì–´ì§„ ê°ì²´ ë°˜í™˜</returns>
     private void CreateNewGoblins()
     {
         foreach (GameObject goblin in GoblinPrefabs)
@@ -86,6 +85,7 @@ public class Objectpool : MonoBehaviour
 
     public static Goblin GetGoblinObject(int GoblinNo, Vector2 pos)
     {
+        Debug.Log("goblinNo" + Instance.GoblinMap);
         if (Instance.GoblinMap[GoblinNo].Count > 0)
         {
             var obj = Instance.GoblinMap.Removeit(GoblinNo);
@@ -103,9 +103,9 @@ public class Objectpool : MonoBehaviour
     }
 
     /// <summary>
-    /// ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ê°ì²´ ë¹„í™œì„±í™”
+    /// »ç¿ëÇÏÁö ¾Ê´Â °´Ã¼ ºñÈ°¼ºÈ­
     /// </summary>
-    /// <param name="obj">ë¹„í™œì„±í™” ì‹œí‚¬ ê°ì²´</param>
+    /// <param name="obj">ºñÈ°¼ºÈ­ ½ÃÅ³ °´Ã¼</param>
     public static void ReturnGoblin(Goblin obj)
     {
         obj.gameObject.SetActive(false);

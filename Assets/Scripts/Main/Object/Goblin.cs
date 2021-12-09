@@ -36,7 +36,5 @@ public class Goblin : Actor
         GetCoin = dict.GetCoin;
         Atk = dict.Atk;
         AtkDelay = dict.AtkDelay;
-
-        throw new System.NotImplementedException();
     }
 }

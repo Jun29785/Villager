@@ -21,7 +21,6 @@ public class UserDataManager : Singleton<UserDataManager>
     private void Start()
     {
         filepath = Application.persistentDataPath + "/UserData.json";
-        Debug.Log("filepath : " + filepath);
     }
     public void LoadUserData()
     {
@@ -52,7 +51,6 @@ public class UserDataManager : Singleton<UserDataManager>
 
         // Json 파일 불러오기
         string code = File.ReadAllText(filepath);
-        Debug.Log("jdata"+code);
         // Json 암호화 해독
         byte[] bytes = System.Convert.FromBase64String(code);
         string jdata = System.Text.Encoding.UTF8.GetString(bytes);
@@ -60,13 +58,11 @@ public class UserDataManager : Singleton<UserDataManager>
         // Json 변환
         userData = JsonConvert.DeserializeObject<UserData>(jdata);
         yield return new WaitForSeconds(0.1f);
-        CheckUserDataValue();
     }
 
     public IEnumerator SaveData()
     {
         string jdata = JsonConvert.SerializeObject(userData);
-        Debug.Log("data"+jdata);
         // json 암호화 
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jdata);
         string code = System.Convert.ToBase64String(bytes);
@@ -74,12 +70,5 @@ public class UserDataManager : Singleton<UserDataManager>
         // Json 파일 저장
         File.WriteAllText(filepath, code);
         yield return new WaitForSeconds(0.1f);
-        CheckUserDataValue();
-    }
-
-    void CheckUserDataValue()
-    {
-        Debug.Log("UserName : " + userData.UserName + " Coin : " + userData.Coin + " GoblinCoin : " + userData.CurrentGoblinCoin +
-            " GoblinDictionary : " + userData.GoblinDictionary.Keys + " CurrentGoblin : " + userData.CurrentGoblin.Keys);
     }
 }
