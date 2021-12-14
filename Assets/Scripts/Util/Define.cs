@@ -13,9 +13,9 @@ namespace Define
     public enum IntroPhase
     {
         Start,
-        ApplicationSetting,
-        StaticData,
         UserData,
+        StaticData,
+        ApplicationSetting,
         Complete
     }
 }

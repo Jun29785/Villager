@@ -44,6 +44,33 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private int FieldGoblin;
+    public int fieldGoblin
+    {
+        get
+        {
+            return FieldGoblin;
+        }
+        set
+        {
+            FieldGoblin = value;
+        }
+    }
+
+    private int LimitFieldGoblin;
+    public int limitFieldGoblin
+    {
+        get
+        {
+            return LimitFieldGoblin;
+        }
+
+        set
+        {
+            LimitFieldGoblin = value;
+        }
+    }
+
     public TitleController titleController; 
 
     protected override void Awake()

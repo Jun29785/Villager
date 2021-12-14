@@ -16,7 +16,6 @@ public class TitleUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("HasName : " + HasName);
         if(TitleController.allLoaded && HasName) { TapToStart.SetActive(true); }
     }
 
@@ -27,14 +26,14 @@ public class TitleUI : MonoBehaviour
             case IntroPhase.Start:
                 loadingText.text = "Start";
                 break;
-            case IntroPhase.ApplicationSetting:
-                loadingText.text = "ApplicationSetting";
+            case IntroPhase.UserData:
+                loadingText.text = "UserData";
                 break;
             case IntroPhase.StaticData:
                 loadingText.text = "StaticData";
                 break;
-            case IntroPhase.UserData:
-                loadingText.text = "UserData";
+            case IntroPhase.ApplicationSetting:
+                loadingText.text = "ApplicationSetting";
                 break;
             case IntroPhase.Complete:
                 loadingText.text = "Complete";

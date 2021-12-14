@@ -55,16 +55,16 @@ public class TitleController : MonoBehaviour
             case IntroPhase.Start:
                 LoadComplete = true;
                 break;
-            case IntroPhase.ApplicationSetting:
-                GameManager.Instance.ApplicationSetting();
+            case IntroPhase.UserData:
+                UserDataManager.Instance.LoadUserData();
                 LoadComplete = true;
                 break;
             case IntroPhase.StaticData:
                 DataBaseManager.Instance.LoadTable();
                 LoadComplete = true;
                 break;
-            case IntroPhase.UserData:
-                UserDataManager.Instance.LoadUserData();
+            case IntroPhase.ApplicationSetting:
+                GameManager.Instance.ApplicationSetting();
                 LoadComplete = true;
                 break;
             case IntroPhase.Complete:
@@ -80,7 +80,7 @@ public class TitleController : MonoBehaviour
 
         IEnumerator WaitForSeconds()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.7f);
 
             loadComplete = false;
             OnPhase(++phase);

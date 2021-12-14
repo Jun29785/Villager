@@ -85,11 +85,12 @@ public class Objectpool : MonoBehaviour
 
     public static Goblin GetGoblinObject(int GoblinNo, Vector2 pos)
     {
-        Debug.Log("goblinNo" + Instance.GoblinMap);
         if (Instance.GoblinMap[GoblinNo].Count > 0)
         {
             var obj = Instance.GoblinMap.Removeit(GoblinNo);
+            Debug.Log("1 Obj Pos : " + obj.transform.position);
             obj.transform.position = pos;
+            Debug.Log("2 Obj Pos : " + obj.transform.position);
             obj.gameObject.SetActive(true);
             return obj;
         }

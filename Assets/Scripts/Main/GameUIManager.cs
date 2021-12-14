@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameUIManager : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI Text_GoblinCoin;
-
+    public TMPro.TextMeshProUGUI Text_FieldGoblin;
     IEnumerator GetGoblinCoin(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -41,7 +41,7 @@ public class GameUIManager : MonoBehaviour
         var gm = GameManager.Instance;
         Text_GoblinCoin.text = gm.goblinCoin.ToString() + "/" + gm.limitGoblinCoin.ToString();
     }
-
+     
     public void ClickGoblinCoin()
     {
         if (GameManager.Instance.goblinCoin > 0)
@@ -51,4 +51,12 @@ public class GameUIManager : MonoBehaviour
             GameManager.Instance.goblinCoin -= 1;
         }
     }
+    
+    private void FieldGoblin()
+    {
+        var gm = GameManager.Instance;
+        Text_FieldGoblin.text = gm.fieldGoblin.ToString() + "/" + gm.limitFieldGoblin.ToString();
+    }
+
+
 }
