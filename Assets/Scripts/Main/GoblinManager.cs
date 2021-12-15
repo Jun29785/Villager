@@ -15,13 +15,14 @@ public class GoblinManager : Singleton<GoblinManager>
         var pos = RandomSpawnPos();
         Goblin obj = Objectpool.GetGoblinObject((int)goblinEnum.단검고블린, pos);
         obj.transform.position = pos;
+        obj.transform.localScale = new Vector3(1, 1, 1);
     }
 
     private Vector2 RandomSpawnPos()
     {
         // Random Vector2
-        Vector2 pos = new Vector2(Random.Range(-2.5f,2.5f),Random.Range(-4.65f,0));
-        Debug.Log("Spawn Pos : " + pos);
+        Vector2 pos = new Vector2(Random.Range(120f,1320f),Random.Range(120f,2840f));
+        Debug.Log(pos);
         return pos;
     }
 }

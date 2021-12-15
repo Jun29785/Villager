@@ -7,6 +7,9 @@ public class GameUIManager : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI Text_GoblinCoin;
     public TMPro.TextMeshProUGUI Text_FieldGoblin;
+    public GameObject ObjectPool;
+
+    bool canGetGoblinCoin=true;
     IEnumerator GetGoblinCoin(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -29,11 +32,22 @@ public class GameUIManager : MonoBehaviour
     private void Update()
     {
         UIText();
+        GetFieldGoblinCount();
+        if (GameManager.Instance.goblinCoin > GameManager.Instance.limitGoblinCoin - 1 && canGetGoblinCoin)
+        {
+            StopCoroutine(GetGoblinCoin(GameManager.Instance.goblinCoinDelay));
+            canGetGoblinCoin = false;
+        }
+        else
+        {
+            StartCoroutine(GetGoblinCoin(GameManager.Instance.goblinCoinDelay));
+        }
     }
 
     private void UIText()
     {
         GoblinCoinText();
+        FieldGoblinText();
     }
 
     private void GoblinCoinText()
@@ -44,19 +58,30 @@ public class GameUIManager : MonoBehaviour
      
     public void ClickGoblinCoin()
     {
-        if (GameManager.Instance.goblinCoin > 0)
+        var gm = GameManager.Instance;
+        if (gm.goblinCoin > 0 &&gm.fieldGoblin<gm.limitFieldGoblin)
         {
             // Spawn Goblin
             GoblinManager.Instance.SpawnGoblin();
             GameManager.Instance.goblinCoin -= 1;
+            canGetGoblinCoin = true;
         }
     }
     
-    private void FieldGoblin()
+    private void GetFieldGoblinCount()
+    {
+        int count = 0;
+        foreach (Transform child in ObjectPool.transform)
+        {
+            if (child.gameObject.activeSelf)
+                count++;
+        }
+        GameManager.Instance.fieldGoblin = count;
+    }
+
+    private void FieldGoblinText()
     {
         var gm = GameManager.Instance;
         Text_FieldGoblin.text = gm.fieldGoblin.ToString() + "/" + gm.limitFieldGoblin.ToString();
     }
-
-
 }

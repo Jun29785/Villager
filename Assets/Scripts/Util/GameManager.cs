@@ -71,7 +71,9 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public TitleController titleController; 
+    public TitleController titleController;
+
+    public Vector2 PointerPosition;
 
     protected override void Awake()
     {
@@ -82,6 +84,11 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(this);
     }
 
+    private void FixedUpdate()
+    {
+        PointerPosition = Input.mousePosition;
+    }
+
     private void Start()
     {
         titleController.Initialize();
@@ -90,6 +97,7 @@ public class GameManager : Singleton<GameManager>
     private void Init()
     {
         limitGoblinCoin = 10;
+        limitFieldGoblin = 10;
     }
 
     public void ApplicationSetting()
