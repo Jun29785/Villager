@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Define;
 
 public class MultiMap<TKey, TValue>
 {
@@ -66,21 +67,21 @@ public class Objectpool : MonoBehaviour
 
     private void Initialize(int count)
     {
-        CreateNewGoblins();
+        CreateNewGoblins((int)goblinEnum.단검고블린);
+        CreateNewGoblins((int)goblinEnum.창고블린);
     }
 
     /// <summary>
     /// 새로운 객체 만들기
     /// </summary>
-    private void CreateNewGoblins()
+    private void CreateNewGoblins(int GoblinNo)
     {
-        foreach (GameObject goblin in GoblinPrefabs)
-        {
-            var newObj = Instantiate(goblin).GetComponent<Goblin>();
-            newObj.transform.parent = Instance.transform;
-            newObj.gameObject.SetActive(false);
-            GoblinMap.Add(newObj.UnitNo, newObj);
-        }
+        GameObject goblin = GoblinPrefabs[GoblinNo - (int)goblinEnum.단검고블린]; 
+        var newObj = Instantiate(goblin).GetComponent<Goblin>();
+        newObj.transform.parent = Instance.transform;
+        newObj.gameObject.SetActive(false);
+        GoblinMap.Add(newObj.UnitNo, newObj);
+        
     }
 
     public static Goblin GetGoblinObject(int GoblinNo, Vector2 pos)
@@ -89,13 +90,12 @@ public class Objectpool : MonoBehaviour
         {
             var obj = Instance.GoblinMap.Removeit(GoblinNo);
             obj.gameObject.SetActive(true);
-            obj.transform.position = pos;
-            Debug.Log("pos = " + pos + "objpos = " + obj.transform.position);
+            obj.GetComponent<RectTransform>().anchoredPosition = pos;
             return obj;
         }
         else
         {
-            Instance.CreateNewGoblins();
+            Instance.CreateNewGoblins(GoblinNo);
             var newobj = Instance.GoblinMap.Removeit(GoblinNo);
             newobj.gameObject.SetActive(true);
             return newobj;

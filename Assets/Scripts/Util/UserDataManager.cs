@@ -47,6 +47,7 @@ public class UserDataManager : Singleton<UserDataManager>
 
     public IEnumerator LoadData()
     {
+        StopCoroutine(SaveData());
         if (!File.Exists(filepath)) { ResetUserData(); yield return new WaitForSeconds(0.2f); }
 
         // Json 파일 불러오기
@@ -70,5 +71,13 @@ public class UserDataManager : Singleton<UserDataManager>
         // Json 파일 저장
         File.WriteAllText(filepath, code);
         yield return new WaitForSeconds(0.1f);
+    }
+
+    public IEnumerator SaveDataDelay()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        Debug.Log("Save User Data");
+        StartCoroutine(SaveData());
+        StartCoroutine(SaveDataDelay());
     }
 }

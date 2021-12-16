@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Numerics;
 
 public class GameManager : Singleton<GameManager>
 {
+    #region Variables
+
     private int GoblinCoin;
     public int goblinCoin
     {
@@ -71,9 +73,24 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private BigInteger Coin;
+    public BigInteger coin
+    {
+        get
+        {
+            return Coin;
+        }
+        set
+        {
+            Coin = value;
+        }
+    }
+
     public TitleController titleController;
 
-    public Vector2 PointerPosition;
+    public UnityEngine.Vector2 PointerPosition;
+
+    #endregion
 
     protected override void Awake()
     {
