@@ -7,71 +7,73 @@ public class GameManager : Singleton<GameManager>
 {
     #region Variables
 
-    private int GoblinCoin;
-    public int goblinCoin
+    private int VillagerCoin;
+    public int villagerCoin
     {
         get
         {
-            return GoblinCoin;
+            return VillagerCoin;
         }
         set
         {
-            GoblinCoin = value;
+            VillagerCoin = value;
         }
     }
 
-    private int LimitGoblinCoin;
-    public int limitGoblinCoin
+    private int LimitVillagerCoin;
+    public int limitVillagerCoin
     {
         get
         {
-            return LimitGoblinCoin;
+            return LimitVillagerCoin;
         }
         set
         {
-            LimitGoblinCoin = value;
+            LimitVillagerCoin = value;
         }
     }
 
-    private float GoblinCoinDelay;
-    public float goblinCoinDelay
+    private float VillagerCoinDelay;
+    public float villagerCoinDelay
     {
         get
         {
-            return GoblinCoinDelay;
+            return VillagerCoinDelay;
         }
         set
         {
-            GoblinCoinDelay = value;
+            VillagerCoinDelay = value;
         }
     }
 
-    private int FieldGoblin;
-    public int fieldGoblin
+    private int FieldVillager;
+    public int fieldVillager
     {
         get
         {
-            return FieldGoblin;
+            return FieldVillager;
         }
         set
         {
-            FieldGoblin = value;
+            FieldVillager = value;
         }
     }
 
-    private int LimitFieldGoblin;
-    public int limitFieldGoblin
+    private int LimitFieldVillager;
+    public int limitFieldvillager
     {
         get
         {
-            return LimitFieldGoblin;
+            return LimitFieldVillager;
         }
 
         set
         {
-            LimitFieldGoblin = value;
+            LimitFieldVillager = value;
         }
     }
+
+
 
     private BigInteger Coin;
     public BigInteger coin
@@ -113,8 +115,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Init()
     {
-        limitGoblinCoin = 10;
-        limitFieldGoblin = 10;
+        limitVillagerCoin = 10;
+        limitFieldvillager = 10;
     }
 
     public void ApplicationSetting()

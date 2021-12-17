@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace Define
 {
-    public enum goblinEnum
+    public enum VillagerEnum
     {
-        단검고블린 = 10001,
-        창고블린,
+        빌 = 10001,
+        스티브,
+        알렉스,
+        안나,
         //다음 고블린 순서대로 작성
     }
 

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Define;
-public class SpearGoblin : Goblin
+public class Steve : Villager
 {
     public override void Awake()
     {
         base.Awake();
-        SetData((int)goblinEnum.창고블린);
+        SetData((int)VillagerEnum.스티브);
     }
 }

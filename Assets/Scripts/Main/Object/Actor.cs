@@ -8,9 +8,9 @@ public abstract class Actor : MonoBehaviour
     [Header("State")]
     public int UnitNo;
     public string Name;
-    public BigInteger GetCoin;
-    public BigInteger Atk;
-    public float AtkDelay;
+    public int GetCoin;
+    public int CropTime;
+    public int CropAmount;
 
     public Animator anim;
 

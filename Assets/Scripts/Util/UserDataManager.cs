@@ -33,10 +33,10 @@ public class UserDataManager : Singleton<UserDataManager>
         //init UserData
         NameInput.SetActive(true);
         userData.Coin = 0;
-        userData.CurrentGoblinCoin = 0;
-        userData.GoblinDictionary.Clear();
-        userData.GoblinDictionary.Add("NormalGoblin", true);
-        userData.CurrentGoblin.Clear();
+        userData.CurrentVillagerCoin = 0;
+        userData.VillagerDictionary.Clear();
+        userData.VillagerDictionary.Add("NormalVillager", true);
+        userData.CurrentVillager.Clear();
 
         // Start Coroutine SaveData
         StartCoroutine(SaveData());

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 // Abstract parent class inhibit
-public class Goblin : Actor, IDragHandler, IPointerDownHandler, IDropHandler
+public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
 {
     bool isClicked;
     float MoveSpeed;
@@ -19,10 +19,22 @@ public class Goblin : Actor, IDragHandler, IPointerDownHandler, IDropHandler
         DragSpeed = 10000000f;
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(Move());
+        StartCoroutine(EarnCoin());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(Move());
+        StopCoroutine(EarnCoin());
+    }
+
     public override void Start()
     {
         base.Start();
-        StartCoroutine(Move());
+        
     }
 
     public override void Update()
@@ -39,12 +51,12 @@ public class Goblin : Actor, IDragHandler, IPointerDownHandler, IDropHandler
 
     public override void SetData(int Key)
     {
-        var dict = DataBaseManager.Instance.tdGoblinDict[Key];
+        var dict = DataBaseManager.Instance.tdVillagerDict[Key];
         UnitNo = dict.unitNo;
         Name = dict.Name;
         GetCoin = dict.GetCoin;
-        Atk = dict.Atk;
-        AtkDelay = dict.AtkDelay;
+        CropTime = dict.CropTime;
+        CropAmount = dict.CropAmount;
     }
 
     Vector2 RandomPosition(Vector2 vector)
@@ -77,7 +89,7 @@ public class Goblin : Actor, IDragHandler, IPointerDownHandler, IDropHandler
 
     IEnumerator WaitSecond()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForFixedUpdate();
         CanCombine = false;
         StartCoroutine(Move());
     }
@@ -96,24 +108,22 @@ public class Goblin : Actor, IDragHandler, IPointerDownHandler, IDropHandler
         Drop();
     }
 
-    // Combine Goblin To Next Step
+    // Combine Villager To Next Step
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("CollisionEnter" + "\nCanCombine : " + CanCombine);
-        if (CanCombine && collision.gameObject.CompareTag("Goblin"))
+        if (CanCombine && collision.gameObject.CompareTag("Villager") && this.UnitNo == collision.gameObject.GetComponent<Villager>().UnitNo)
         {
-            Debug.Log("StartCombine");
             CanCombine = false;
             // Get Position (other)
             Vector2 pos = collision.gameObject.GetComponent<RectTransform>().anchoredPosition;
-            Debug.Log("pos : " + pos);
             // Remove this and other
-            Objectpool.ReturnGoblin(this);
-            Objectpool.ReturnGoblin(collision.gameObject.GetComponent<Goblin>());
-            // Create Next Goblin
-            Goblin obj = Objectpool.GetGoblinObject(UnitNo + 1, pos);
+            Objectpool.ReturnVillager(this);
+            Objectpool.ReturnVillager(collision.gameObject.GetComponent<Villager>());
+            // Create Next Villager
+            Villager obj = Objectpool.GetVillagerObject(UnitNo + 1, pos);
             obj.GetComponent<RectTransform>().anchoredPosition = pos;
             obj.transform.localScale = new Vector3(1, 1, 1);
+            obj.CanCombine = false;
         }
     }
 
@@ -121,7 +131,6 @@ public class Goblin : Actor, IDragHandler, IPointerDownHandler, IDropHandler
     public void PointerDown()
     {
         isClicked = true;
-
     }
 
     // PointerUp
@@ -136,5 +145,12 @@ public class Goblin : Actor, IDragHandler, IPointerDownHandler, IDropHandler
     public void Drag()
     {
         transform.position = Vector2.MoveTowards(transform.position, Pointer, DragSpeed * Time.deltaTime);
+    }
+
+    IEnumerator EarnCoin()
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.coin += GetCoin;
+        StartCoroutine(EarnCoin());
     }
 }

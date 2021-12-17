@@ -8,11 +8,12 @@ using System;
 public class UserData
 {
     public string UserName;
+    [SerializeField]
     public BigInteger Coin;
     // 고블린 금화 주머니 안의 금화 수
-    public int CurrentGoblinCoin;
+    public int CurrentVillagerCoin;
 
-    public Dictionary<string, bool> GoblinDictionary = new Dictionary<string, bool>();
+    public Dictionary<string, bool> VillagerDictionary = new Dictionary<string, bool>();
     // 필드 고블린 수
-    public Dictionary<int, int> CurrentGoblin = new Dictionary<int, int>(); // <"고유번호", "개수">
+    public Dictionary<int, int> CurrentVillager = new Dictionary<int, int>(); // <"고유번호", "개수">
 }

@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Define;
 
-public class GoblinManager : Singleton<GoblinManager>
+public class VillagerManager : Singleton<VillagerManager>
 {
     void Start()
     {
         
     }
 
-    public void SpawnGoblin()
+    public void SpawnVillager()
     {
         var pos = RandomSpawnPos();
-        Goblin obj = Objectpool.GetGoblinObject((int)goblinEnum.단검고블린, pos);
+        Villager obj = Objectpool.GetVillagerObject((int)VillagerEnum.빌, pos);
         obj.GetComponent<RectTransform>().anchoredPosition = pos;
         obj.transform.localScale = new Vector3(1, 1, 1);
     }

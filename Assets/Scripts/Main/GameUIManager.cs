@@ -7,34 +7,34 @@ using System.Numerics;
 public class GameUIManager : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI Text_Coin;
-    public TMPro.TextMeshProUGUI Text_GoblinCoin;
-    public TMPro.TextMeshProUGUI Text_FieldGoblin;
+    public TMPro.TextMeshProUGUI Text_VillagerCoin;
+    public TMPro.TextMeshProUGUI Text_FieldVillager;
     public GameObject ObjectPool;
 
-    bool canGetGoblinCoin = true;
+    bool canGetVillagerCoin = true;
 
     string[] coinUnitArr = new string[] { "", "만", "억", "조", "경", "해", "자", "양", "가", "구", "간" };
     BigInteger coin;
     
-    IEnumerator GetGoblinCoin(float delay)
+    IEnumerator GetVillagerCoin(float delay)
     {
         yield return new WaitForSeconds(delay);
 
         var gm = GameManager.Instance;
 
-        if (gm.goblinCoin < gm.limitGoblinCoin)
+        if (gm.villagerCoin < gm.limitVillagerCoin)
         {
-            gm.goblinCoin += 1;
-            if (gm.goblinCoin < gm.limitGoblinCoin)
+            gm.villagerCoin += 1;
+            if (gm.villagerCoin < gm.limitVillagerCoin)
             {
-                StartCoroutine(GetGoblinCoin(gm.goblinCoinDelay));
+                StartCoroutine(GetVillagerCoin(gm.villagerCoinDelay));
             }
         }
     }
 
     private void Awake()
     {
-        GameManager.Instance.goblinCoinDelay = 1;
+        GameManager.Instance.villagerCoinDelay = 1;
         Initialize();
         StartCoroutine(UserDataManager.Instance.SaveDataDelay());
     }
@@ -42,29 +42,29 @@ public class GameUIManager : MonoBehaviour
     private void Update()
     {
         UIText();
-        GetFieldGoblinCount();
-        if (canGetGoblinCoin)
+        GetFieldVillagerCount();
+        if (canGetVillagerCoin)
         {
-            canGetGoblinCoin = false;
-            StartCoroutine(GetGoblinCoin(GameManager.Instance.goblinCoinDelay));
+            canGetVillagerCoin = false;
+            StartCoroutine(GetVillagerCoin(GameManager.Instance.villagerCoinDelay));
         }
         coin = GameManager.Instance.coin;
-        UserDataManager.Instance.userData.CurrentGoblinCoin = GameManager.Instance.goblinCoin;
+        UserDataManager.Instance.userData.CurrentVillagerCoin = GameManager.Instance.villagerCoin;
     }
 
     void Initialize()
     {
         var gm = GameManager.Instance;
         var um = UserDataManager.Instance.userData;
-        gm.goblinCoin = um.CurrentGoblinCoin;
+        gm.villagerCoin = um.CurrentVillagerCoin;
         gm.coin = um.Coin;
     }
 
     private void UIText()
     {
         CoinText();
-        GoblinCoinText();
-        FieldGoblinText();
+        VillagerCoinText();
+        FieldVillagerText();
     }
 
     private void CoinText()
@@ -72,29 +72,29 @@ public class GameUIManager : MonoBehaviour
         Text_Coin.text = GetCoinText();
     }
 
-    private void GoblinCoinText()
+    private void VillagerCoinText()
     {
         var gm = GameManager.Instance;
-        Text_GoblinCoin.text = gm.goblinCoin.ToString() + "/" + gm.limitGoblinCoin.ToString();
+        Text_VillagerCoin.text = gm.villagerCoin.ToString() + "/" + gm.limitVillagerCoin.ToString();
     }
      
-    public void ClickGoblinCoin()
+    public void ClickVillagerCoin()
     {
         var gm = GameManager.Instance;
-        if (gm.goblinCoin > 0 &&gm.fieldGoblin<gm.limitFieldGoblin)
+        if (gm.villagerCoin > 0 &&gm.fieldVillager<gm.limitVillagerCoin)
         {
-            // Spawn Goblin
-            GoblinManager.Instance.SpawnGoblin();
-            GameManager.Instance.goblinCoin -= 1;
-            if (!canGetGoblinCoin && GameManager.Instance.goblinCoin == GameManager.Instance.limitGoblinCoin-1)
+            // Spawn Villager
+            VillagerManager.Instance.SpawnVillager();
+            GameManager.Instance.villagerCoin -= 1;
+            if (!canGetVillagerCoin && GameManager.Instance.villagerCoin == GameManager.Instance.limitVillagerCoin-1)
             {
-                canGetGoblinCoin = true;
+                canGetVillagerCoin = true;
             }
         }
         StartCoroutine(UserDataManager.Instance.SaveDataDelay());
     }
     
-    private void GetFieldGoblinCount()
+    private void GetFieldVillagerCount()
     {
         int count = 0;
         foreach (Transform child in ObjectPool.transform)
@@ -102,13 +102,13 @@ public class GameUIManager : MonoBehaviour
             if (child.gameObject.activeSelf)
                 count++;
         }
-        GameManager.Instance.fieldGoblin = count;
+        GameManager.Instance.fieldVillager = count;
     }
 
-    private void FieldGoblinText()
+    private void FieldVillagerText()
     {
         var gm = GameManager.Instance;
-        Text_FieldGoblin.text = gm.fieldGoblin.ToString() + "/" + gm.limitFieldGoblin.ToString();
+        Text_FieldVillager.text = gm.fieldVillager.ToString() + "/" + gm.limitVillagerCoin.ToString();
     }
 
     private string GetCoinText()
@@ -127,9 +127,9 @@ public class GameUIManager : MonoBehaviour
 
         for (int i = 0; i < numList.Count; i++)
         {
-            if (i > numList.Count - 2)
+            if (i > numList.Count - 3)
             {
-                retStr = numList[i] + coinUnitArr[i] + retStr;
+                retStr = numList[i] + coinUnitArr[i]+ " " + retStr;
             }
         }
         return retStr;

@@ -55,48 +55,50 @@ public class Objectpool : MonoBehaviour
 
     [Header("Prefab Object")]
     [SerializeField]
-    private GameObject[] GoblinPrefabs;
+    private GameObject[] VillagerPrefabs;
 
-    MultiMap<int, Goblin> GoblinMap = new MultiMap<int, Goblin>();
+    MultiMap<int, Villager> VillagerMap = new MultiMap<int, Villager>();
 
     private void Awake()
     {
         Instance = this;
-        Initialize(GameManager.Instance.limitGoblinCoin);
+        Initialize(GameManager.Instance.limitVillagerCoin);
     }
 
     private void Initialize(int count)
     {
-        CreateNewGoblins((int)goblinEnum.단검고블린);
-        CreateNewGoblins((int)goblinEnum.창고블린);
+        CreateNewVillagers((int)VillagerEnum.빌);
+        CreateNewVillagers((int)VillagerEnum.스티브);
+        CreateNewVillagers((int)VillagerEnum.알렉스);
+        CreateNewVillagers((int)VillagerEnum.안나);
     }
 
     /// <summary>
     /// 새로운 객체 만들기
     /// </summary>
-    private void CreateNewGoblins(int GoblinNo)
+    private void CreateNewVillagers(int VillagerNo)
     {
-        GameObject goblin = GoblinPrefabs[GoblinNo - (int)goblinEnum.단검고블린]; 
-        var newObj = Instantiate(goblin).GetComponent<Goblin>();
+        GameObject Villager = VillagerPrefabs[VillagerNo - (int)VillagerEnum.빌]; 
+        var newObj = Instantiate(Villager).GetComponent<Villager>();
         newObj.transform.parent = Instance.transform;
         newObj.gameObject.SetActive(false);
-        GoblinMap.Add(newObj.UnitNo, newObj);
+        VillagerMap.Add(newObj.UnitNo, newObj);
         
     }
 
-    public static Goblin GetGoblinObject(int GoblinNo, Vector2 pos)
+    public static Villager GetVillagerObject(int VillagerNo, Vector2 pos)
     {
-        if (Instance.GoblinMap[GoblinNo].Count > 0)
+        if (Instance.VillagerMap[VillagerNo].Count > 0)
         {
-            var obj = Instance.GoblinMap.Removeit(GoblinNo);
+            var obj = Instance.VillagerMap.Removeit(VillagerNo);
             obj.gameObject.SetActive(true);
             obj.GetComponent<RectTransform>().anchoredPosition = pos;
             return obj;
         }
         else
         {
-            Instance.CreateNewGoblins(GoblinNo);
-            var newobj = Instance.GoblinMap.Removeit(GoblinNo);
+            Instance.CreateNewVillagers(VillagerNo);
+            var newobj = Instance.VillagerMap.Removeit(VillagerNo);
             newobj.gameObject.SetActive(true);
             return newobj;
         }
@@ -106,10 +108,10 @@ public class Objectpool : MonoBehaviour
     /// 사용하지 않는 객체 비활성화
     /// </summary>
     /// <param name="obj">비활성화 시킬 객체</param>
-    public static void ReturnGoblin(Goblin obj)
+    public static void ReturnVillager(Villager obj)
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);
-        Instance.GoblinMap.Add(obj.UnitNo, obj);
+        Instance.VillagerMap.Add(obj.UnitNo, obj);
     }
 }

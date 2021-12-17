@@ -1,0 +1,26 @@
+{
+     "10001": {
+          "Name": "빌",
+          "GetCoin": "9999999",
+          "CropTime": "120",
+          "CropAmount": "100"
+   },
+     "10002": {
+          "Name": "스티브",
+          "GetCoin": "20",
+          "CropTime": "115",
+          "CropAmount": "200"
+   },
+     "10003": {
+          "Name": "알렉스",
+          "GetCoin": "30",
+          "CropTime": "110",
+          "CropAmount": "300"
+   },
+     "10004": {
+          "Name": "안나",
+          "GetCoin": "40",
+          "CropTime": "105",
+          "CropAmount": "400"
+   }
+}
