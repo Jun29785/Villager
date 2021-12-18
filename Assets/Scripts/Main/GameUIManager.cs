@@ -11,6 +11,9 @@ public class GameUIManager : MonoBehaviour
     public TMPro.TextMeshProUGUI Text_FieldVillager;
     public GameObject ObjectPool;
 
+    public GameObject ShopObj;
+    public Transform ShopObjParent;
+
     bool canGetVillagerCoin = true;
 
     string[] coinUnitArr = new string[] { "", "만", "억", "조", "경", "해", "자", "양", "가", "구", "간" };
@@ -133,5 +136,22 @@ public class GameUIManager : MonoBehaviour
             }
         }
         return retStr;
+    }
+
+    private void CreateShop()
+    {
+        for (int i = 0; i<ShopObjParent.childCount; i++)
+        {
+            Destroy(ShopObjParent.GetChild(i).gameObject);
+        }
+
+        foreach (var i in DataBaseManager.Instance.tdShopDict.Values)
+        {
+            Debug.Log("in");
+            GameObject Create = (GameObject)Instantiate(ShopObj);
+            Create.transform.parent = ShopObjParent;
+            Create.transform.localScale = new UnityEngine.Vector3(1, 1, 1);
+
+        }
     }
 }

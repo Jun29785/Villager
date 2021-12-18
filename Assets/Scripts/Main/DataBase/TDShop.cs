@@ -7,6 +7,7 @@ public class TDShop : TableBase
 {
     public int unitNo;
     public string Name;
+    public int Cost;
     public int Value;
 
     public override void SetJsonData(string key, JObject info)
