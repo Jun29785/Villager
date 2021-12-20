@@ -26,11 +26,11 @@ public class TitleUI : MonoBehaviour
             case IntroPhase.Start:
                 loadingText.text = "Start";
                 break;
-            case IntroPhase.UserData:
-                loadingText.text = "UserData";
-                break;
             case IntroPhase.StaticData:
                 loadingText.text = "StaticData";
+                break;
+            case IntroPhase.UserData:
+                loadingText.text = "UserData";
                 break;
             case IntroPhase.ApplicationSetting:
                 loadingText.text = "ApplicationSetting";

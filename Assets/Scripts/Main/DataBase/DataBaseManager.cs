@@ -20,6 +20,7 @@ public class DataBaseManager : Singleton<DataBaseManager>
     {
         Debug.Log("테이블 로딩 시작");
         LoadVillagerTable();
+        LoadShopTable();
     }
 
     void LoadVillagerTable()
@@ -58,7 +59,8 @@ public class DataBaseManager : Singleton<DataBaseManager>
             TDShop tdShop = new TDShop();
 
             tdShop.SetJsonData(pair.Key, pair.Value.ToObject<JObject>());
-            tdShopDict.Add(tdShop.unitNo, tdShop);
+            tdShopDict.Add(tdShop.Key, tdShop);
         }
+        Debug.Log("상점 테이블 완료");
     }
 }

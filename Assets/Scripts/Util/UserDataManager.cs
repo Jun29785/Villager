@@ -37,12 +37,23 @@ public class UserDataManager : Singleton<UserDataManager>
         userData.VillagerDictionary.Clear();
         userData.VillagerDictionary.Add("NormalVillager", true);
         userData.CurrentVillager.Clear();
+        InitLevel();
 
         // Start Coroutine SaveData
         StartCoroutine(SaveData());
 
         // Start Coroutine LoadData
         StartCoroutine(LoadData());
+    }
+
+    void InitLevel()
+    {
+        userData.ShopLevel.Clear();
+        foreach (var j in DataBaseManager.Instance.tdShopDict.Values)
+        {
+            userData.ShopLevel.Add(j.Name, 1);
+        }
+        
     }
 
     public IEnumerator LoadData()

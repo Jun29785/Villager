@@ -6,11 +6,16 @@ using System.Numerics;
 
 public class GameUIManager : MonoBehaviour
 {
+    [Header("Text")]
     public TMPro.TextMeshProUGUI Text_Coin;
     public TMPro.TextMeshProUGUI Text_VillagerCoin;
     public TMPro.TextMeshProUGUI Text_FieldVillager;
+
+    [Header("ObjectPool")]
     public GameObject ObjectPool;
 
+    [Header("Shop")]
+    public GameObject ShopPanel;
     public GameObject ShopObj;
     public Transform ShopObjParent;
 
@@ -51,7 +56,7 @@ public class GameUIManager : MonoBehaviour
             canGetVillagerCoin = false;
             StartCoroutine(GetVillagerCoin(GameManager.Instance.villagerCoinDelay));
         }
-        coin = GameManager.Instance.coin;
+        coin = UserDataManager.Instance.userData.Coin;
         UserDataManager.Instance.userData.CurrentVillagerCoin = GameManager.Instance.villagerCoin;
     }
 
@@ -138,6 +143,12 @@ public class GameUIManager : MonoBehaviour
         return retStr;
     }
 
+    public void OnClickShop()
+    {
+        ShopPanel.SetActive(true);
+        CreateShop();
+    }
+
     private void CreateShop()
     {
         for (int i = 0; i<ShopObjParent.childCount; i++)
@@ -151,7 +162,12 @@ public class GameUIManager : MonoBehaviour
             GameObject Create = (GameObject)Instantiate(ShopObj);
             Create.transform.parent = ShopObjParent;
             Create.transform.localScale = new UnityEngine.Vector3(1, 1, 1);
-
+            Create.GetComponent<ShopButton>().SetButton(i.Key);
         }
+    }
+
+    public void ExitShop()
+    {
+        ShopPanel.SetActive(false);
     }
 }

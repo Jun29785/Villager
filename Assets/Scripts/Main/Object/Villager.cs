@@ -111,20 +111,7 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
     // Combine Villager To Next Step
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (CanCombine && collision.gameObject.CompareTag("Villager") && this.UnitNo == collision.gameObject.GetComponent<Villager>().UnitNo)
-        {
-            CanCombine = false;
-            // Get Position (other)
-            Vector2 pos = collision.gameObject.GetComponent<RectTransform>().anchoredPosition;
-            // Remove this and other
-            Objectpool.ReturnVillager(this);
-            Objectpool.ReturnVillager(collision.gameObject.GetComponent<Villager>());
-            // Create Next Villager
-            Villager obj = Objectpool.GetVillagerObject(UnitNo + 1, pos);
-            obj.GetComponent<RectTransform>().anchoredPosition = pos;
-            obj.transform.localScale = new Vector3(1, 1, 1);
-            obj.CanCombine = false;
-        }
+        Combine(collision);
     }
 
     // PointerDown
@@ -147,10 +134,28 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
         transform.position = Vector2.MoveTowards(transform.position, Pointer, DragSpeed * Time.deltaTime);
     }
 
+    void Combine(Collision2D collision)
+    {
+        if (CanCombine && collision.gameObject.CompareTag("Villager") && this.UnitNo == collision.gameObject.GetComponent<Villager>().UnitNo)
+        {
+            CanCombine = false;
+            // Get Position (other)
+            Vector2 pos = collision.gameObject.GetComponent<RectTransform>().anchoredPosition;
+            // Remove this and other
+            Objectpool.ReturnVillager(this);
+            Objectpool.ReturnVillager(collision.gameObject.GetComponent<Villager>());
+            // Create Next Villager
+            Villager obj = Objectpool.GetVillagerObject(UnitNo + 1, pos);
+            obj.GetComponent<RectTransform>().anchoredPosition = pos;
+            obj.transform.localScale = new Vector3(1, 1, 1);
+            obj.CanCombine = false;
+        }
+    }
+
     IEnumerator EarnCoin()
     {
         yield return new WaitForSeconds(0.5f);
-        GameManager.Instance.coin += GetCoin;
+        UserDataManager.Instance.userData.Coin += GetCoin;
         StartCoroutine(EarnCoin());
     }
 }

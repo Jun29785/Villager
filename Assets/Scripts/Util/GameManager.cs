@@ -73,8 +73,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-
-
     private BigInteger Coin;
     public BigInteger coin
     {

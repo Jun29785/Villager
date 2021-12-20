@@ -10,14 +10,19 @@ namespace Define
         스티브,
         알렉스,
         안나,
-        //다음 고블린 순서대로 작성
+        //다음 순서대로 작성
+    }
+
+    public enum ShopEnum
+    {
+        
     }
 
     public enum IntroPhase
     {
         Start,
-        UserData,
         StaticData,
+        UserData,
         ApplicationSetting,
         Complete
     }

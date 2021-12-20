@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 public class TDShop : TableBase
 {
-    public int unitNo;
+    public int Key;
     public string Name;
     public int Cost;
     public int Value;
@@ -14,8 +14,9 @@ public class TDShop : TableBase
     {
         base.SetJsonData(key, info);
 
-        unitNo = int.Parse(key);
+        Key = int.Parse(key);
         Name = info["Name"].Value<string>();
+        Cost = info["Cost"].Value<int>();
         Value = info["Value"].Value<int>();
     }
 }

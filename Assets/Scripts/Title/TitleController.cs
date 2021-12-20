@@ -55,12 +55,12 @@ public class TitleController : MonoBehaviour
             case IntroPhase.Start:
                 LoadComplete = true;
                 break;
-            case IntroPhase.UserData:
-                UserDataManager.Instance.LoadUserData();
-                LoadComplete = true;
-                break;
             case IntroPhase.StaticData:
                 DataBaseManager.Instance.LoadTable();
+                LoadComplete = true;
+                break;
+            case IntroPhase.UserData:
+                UserDataManager.Instance.LoadUserData();
                 LoadComplete = true;
                 break;
             case IntroPhase.ApplicationSetting:
