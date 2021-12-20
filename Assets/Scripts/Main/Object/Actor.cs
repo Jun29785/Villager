@@ -11,6 +11,7 @@ public abstract class Actor : MonoBehaviour
     public int GetCoin;
     public int CropTime;
     public int CropAmount;
+    public int CombineCoin;
 
     public Animator anim;
 

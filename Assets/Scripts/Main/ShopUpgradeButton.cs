@@ -12,9 +12,10 @@ public class ShopUpgradeButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("OnClicked");
-        if (GameManager.Instance.coin >= Shop.Cost)
+        if (UserDataManager.Instance.userData.Coin >= Shop.Cost)
         {
             Debug.Log("buy");
+            UserDataManager.Instance.userData.Coin -= Shop.Cost;
             UserDataManager.Instance.userData.ShopLevel[Shop.Name] += 1;
             Shop.SetButton(Shop.Key);
             Debug.Log("Level : " + Shop.Level);

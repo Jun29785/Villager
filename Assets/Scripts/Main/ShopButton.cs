@@ -6,15 +6,10 @@ using UnityEngine.UI;
 public class ShopButton : MonoBehaviour
 {
     [Header("Value")]
-    [SerializeField]
     public int Key;
-    [SerializeField]
     public string Name;
-    [SerializeField]
     public int Cost;
-    [SerializeField]
     public int Value;
-    [SerializeField]
     public int Level;
 
     [Header("Text")]
@@ -23,7 +18,6 @@ public class ShopButton : MonoBehaviour
 
     public void SetButton(int key)
     {
-        Debug.Log("key : " + key);
         this.Key = key;
         var ShopDict = DataBaseManager.Instance.tdShopDict[this.Key];
 

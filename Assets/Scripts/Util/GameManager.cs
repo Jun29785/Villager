@@ -122,4 +122,9 @@ public class GameManager : Singleton<GameManager>
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Screen.orientation = ScreenOrientation.Portrait;
     }
+    
+    public void AddCoin(int amount)
+    {
+        UserDataManager.Instance.userData.Coin += amount;
+    }
 }

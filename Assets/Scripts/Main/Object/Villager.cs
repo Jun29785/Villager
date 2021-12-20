@@ -57,6 +57,7 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
         GetCoin = dict.GetCoin;
         CropTime = dict.CropTime;
         CropAmount = dict.CropAmount;
+        CombineCoin = dict.CombineCoin;
     }
 
     Vector2 RandomPosition(Vector2 vector)
@@ -93,6 +94,7 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
         CanCombine = false;
         StartCoroutine(Move());
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         Drag();
@@ -149,13 +151,14 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
             obj.GetComponent<RectTransform>().anchoredPosition = pos;
             obj.transform.localScale = new Vector3(1, 1, 1);
             obj.CanCombine = false;
+            GameManager.Instance.AddCoin(CombineCoin);
         }
     }
 
     IEnumerator EarnCoin()
     {
         yield return new WaitForSeconds(0.5f);
-        UserDataManager.Instance.userData.Coin += GetCoin;
+        GameManager.Instance.AddCoin(GetCoin);
         StartCoroutine(EarnCoin());
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using Define;
 
 public class UserDataManager : Singleton<UserDataManager>
 {
@@ -36,7 +37,7 @@ public class UserDataManager : Singleton<UserDataManager>
         userData.CurrentVillagerCoin = 0;
         userData.VillagerDictionary.Clear();
         userData.VillagerDictionary.Add("NormalVillager", true);
-        userData.CurrentVillager.Clear();
+        InitCurrentVillager();
         InitLevel();
 
         // Start Coroutine SaveData
@@ -46,6 +47,15 @@ public class UserDataManager : Singleton<UserDataManager>
         StartCoroutine(LoadData());
     }
 
+    public void InitCurrentVillager()
+    {
+        userData.CurrentVillager.Clear();
+        for (int i = 0; i < DataBaseManager.Instance.tdVillagerDict.Count; i++)
+        {
+            userData.CurrentVillager.Add(i + (int)VillagerEnum.ºô, 0);
+        }
+    }
+
     void InitLevel()
     {
         userData.ShopLevel.Clear();
@@ -53,7 +63,6 @@ public class UserDataManager : Singleton<UserDataManager>
         {
             userData.ShopLevel.Add(j.Name, 1);
         }
-        
     }
 
     public IEnumerator LoadData()

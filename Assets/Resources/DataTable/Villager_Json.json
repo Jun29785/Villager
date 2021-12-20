@@ -1,26 +1,34 @@
 {
      "10001": {
           "Name": "빌",
-          "GetCoin": "9999999",
+          "GetCoin": "10",
           "CropTime": "120",
-          "CropAmount": "100"
+          "CropAmount": "100",
+          "CombineCoin": "50",
+          "Description": "심상치 않은 주민이다."
    },
      "10002": {
           "Name": "스티브",
           "GetCoin": "20",
           "CropTime": "115",
-          "CropAmount": "200"
+          "CropAmount": "200",
+          "CombineCoin": "100",
+          "Description": "심상치 않은 주민이다."
    },
      "10003": {
           "Name": "알렉스",
           "GetCoin": "30",
           "CropTime": "110",
-          "CropAmount": "300"
+          "CropAmount": "300",
+          "CombineCoin": "150",
+          "Description": "심상치 않은 주민이다."
    },
      "10004": {
           "Name": "안나",
           "GetCoin": "40",
           "CropTime": "105",
-          "CropAmount": "400"
+          "CropAmount": "400",
+          "CombineCoin": "200",
+          "Description": "심상치 않은 주민이다."
    }
 }

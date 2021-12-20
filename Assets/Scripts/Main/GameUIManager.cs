@@ -6,6 +6,8 @@ using System.Numerics;
 
 public class GameUIManager : MonoBehaviour
 {
+    public static GameUIManager Instance;
+
     [Header("Text")]
     public TMPro.TextMeshProUGUI Text_Coin;
     public TMPro.TextMeshProUGUI Text_VillagerCoin;
@@ -17,7 +19,16 @@ public class GameUIManager : MonoBehaviour
     [Header("Shop")]
     public GameObject ShopPanel;
     public GameObject ShopObj;
-    public Transform ShopObjParent;
+    private Transform ShopObjParent;
+
+    [Header("Dictionary")]
+    public GameObject DictPanel;
+    public GameObject DictObj;
+    private Transform DictObjParent;
+    public GameObject DictInfo;
+    private TMPro.TextMeshProUGUI DictName;
+    private TMPro.TextMeshProUGUI DictCoin;
+    private TMPro.TextMeshProUGUI DictDescription;
 
     bool canGetVillagerCoin = true;
 
@@ -42,9 +53,21 @@ public class GameUIManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         GameManager.Instance.villagerCoinDelay = 1;
         Initialize();
         StartCoroutine(UserDataManager.Instance.SaveDataDelay());
+    }
+
+    private void Start()
+    {
+        #region Find Object
+        ShopObjParent = ShopPanel.transform.GetChild(0).GetChild(0);
+        DictObjParent = DictPanel.transform.GetChild(1).GetChild(0);
+        DictName = DictInfo.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>();
+        DictCoin = DictInfo.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>();
+        DictDescription = DictInfo.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>();
+        #endregion
     }
 
     private void Update()
@@ -143,6 +166,20 @@ public class GameUIManager : MonoBehaviour
         return retStr;
     }
 
+    private void CheckFieldVillager()
+    {
+        UserDataManager.Instance.InitCurrentVillager();
+        for (int i = 0; i < ObjectPool.transform.childCount; i++)
+        {
+            if (ObjectPool.transform.GetChild(i).gameObject.activeSelf)
+            {
+                UserDataManager.Instance.userData.CurrentVillager.Add(
+                    ObjectPool.transform.GetChild(i).GetComponent<Actor>().UnitNo, UserDataManager.Instance.userData.CurrentVillager[
+                        ObjectPool.transform.GetChild(i).GetComponent<Actor>().UnitNo]+1);
+            }
+        }
+    }
+    #region Shop
     public void OnClickShop()
     {
         ShopPanel.SetActive(true);
@@ -170,4 +207,45 @@ public class GameUIManager : MonoBehaviour
     {
         ShopPanel.SetActive(false);
     }
+    #endregion
+
+    #region Dictionary
+    public void OnClickDictionary()
+    {
+        DictPanel.SetActive(true);
+        CreateDictionary();
+    }
+
+    private void CreateDictionary()
+    {
+        for (int i = 0; i < DictObjParent.childCount; i++)
+        {
+            Destroy(DictObjParent.GetChild(i).gameObject);
+        }
+
+        foreach (var i in DataBaseManager.Instance.tdVillagerDict.Values)
+        {
+            Debug.Log("in");
+            GameObject Create = (GameObject)Instantiate(DictObj);
+            Create.transform.parent = DictObjParent;
+            Create.transform.localScale = new UnityEngine.Vector3(1, 1, 1);
+            Debug.Log("UnitNo : " + i.unitNo);
+            Create.GetComponent<DictButton>().SetButton(i.unitNo);
+        }
+    }
+
+    public void ExitDictionary()
+    {
+        DictInfo.SetActive(false);
+        DictPanel.SetActive(false);
+    }
+
+    public void OnClickDictButton(DictButton dictButton)
+    {
+        DictName.text = "이름 : " + dictButton.Name;
+        DictCoin.text = "초당 코인 : " + dictButton.GetCoin;
+        DictDescription.text = "\"" + dictButton.Description + "\"";
+        DictInfo.SetActive(true);
+    }
+    #endregion
 }
