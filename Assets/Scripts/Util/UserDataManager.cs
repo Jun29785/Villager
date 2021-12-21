@@ -23,6 +23,7 @@ public class UserDataManager : Singleton<UserDataManager>
     {
         filepath = Application.persistentDataPath + "/UserData.json";
     }
+
     public void LoadUserData()
     {
         // Start Coroutine LoadData
@@ -87,7 +88,6 @@ public class UserDataManager : Singleton<UserDataManager>
         // json 암호화 
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jdata);
         string code = System.Convert.ToBase64String(bytes);
-
         // Json 파일 저장
         File.WriteAllText(filepath, code);
         yield return new WaitForSeconds(0.1f);
@@ -95,7 +95,7 @@ public class UserDataManager : Singleton<UserDataManager>
 
     public IEnumerator SaveDataDelay()
     {
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(1f);
         Debug.Log("Save User Data");
         StartCoroutine(SaveData());
         StartCoroutine(SaveDataDelay());

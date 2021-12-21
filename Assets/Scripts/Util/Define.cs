@@ -15,7 +15,11 @@ namespace Define
 
     public enum ShopEnum
     {
-        
+        ¡÷πŒΩ√∞Ë=20001,
+        ∏∂¿ª¿Œ±∏,
+        ∞ÒµÂ»πµÊ∑Æ,
+        ¡÷πŒΩ√∞Ëº”µµ,
+        ≥Û¿€π∞º∫¿Â
     }
 
     public enum IntroPhase

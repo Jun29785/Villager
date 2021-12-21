@@ -8,7 +8,6 @@ using System;
 public class UserData
 {
     public string UserName;
-    [SerializeField]
     public BigInteger Coin;
     // 고블린 금화 주머니 안의 금화 수
     public int CurrentVillagerCoin;

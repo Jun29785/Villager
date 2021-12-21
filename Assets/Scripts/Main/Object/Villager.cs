@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Define;
 
 // Abstract parent class inhibit
 public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
@@ -158,7 +159,14 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
     IEnumerator EarnCoin()
     {
         yield return new WaitForSeconds(0.5f);
-        GameManager.Instance.AddCoin(GetCoin);
+        GameManager.Instance.AddCoin(GetCoinAmount());
         StartCoroutine(EarnCoin());
+    }
+
+    int GetCoinAmount()
+    {
+        var td = DataBaseManager.Instance.tdShopDict[(int)ShopEnum.∞ÒµÂ»πµÊ∑Æ];
+        float value = (float)((UserDataManager.Instance.userData.ShopLevel[td.Name] * td.Value) / 10f + 1f) * GetCoin;
+        return (int)value;
     }
 }

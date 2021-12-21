@@ -5,13 +5,12 @@ using Define;
 
 public class VillagerManager : Singleton<VillagerManager>
 {
-    public void SpawnVillager()
+    public void SpawnVillager(int key)
     {
         var pos = RandomSpawnPos();
-        Villager obj = Objectpool.GetVillagerObject((int)VillagerEnum.ºô, pos);
+        Villager obj = Objectpool.GetVillagerObject(key, pos);
         obj.GetComponent<RectTransform>().anchoredPosition = pos;
         obj.transform.localScale = new Vector3(1, 1, 1);
-        Debug.Log("Obj Name : " + obj.GetComponent<Actor>().Name);
     }
 
     private Vector2 RandomSpawnPos()

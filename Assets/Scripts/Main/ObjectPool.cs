@@ -62,15 +62,25 @@ public class Objectpool : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Initialize(GameManager.Instance.limitVillagerCoin);
+        Initialize();
     }
 
-    private void Initialize(int count)
+    private void Initialize()
     {
-        CreateNewVillagers((int)VillagerEnum.網);
-        CreateNewVillagers((int)VillagerEnum.蝶じ粽);
-        CreateNewVillagers((int)VillagerEnum.憲滓蝶);
-        CreateNewVillagers((int)VillagerEnum.寰釭);
+        for (int i = 0; i < DataBaseManager.Instance.tdVillagerDict.Count; i++)
+        {
+            CreateNewVillagers((int)VillagerEnum.網 + i);
+        }
+        var vil = UserDataManager.Instance.userData.CurrentVillager;
+
+        for(int j = 0; j<vil.Count; j++)
+        {
+            while (vil[(int)VillagerEnum.網+j] > 0)
+            {
+                VillagerManager.Instance.SpawnVillager((int)VillagerEnum.網 + j);
+                vil[(int)VillagerEnum.網 + j]--;
+            }
+        }
     }
 
     /// <summary>
@@ -78,12 +88,12 @@ public class Objectpool : MonoBehaviour
     /// </summary>
     private void CreateNewVillagers(int VillagerNo)
     {
-        GameObject Villager = VillagerPrefabs[VillagerNo - (int)VillagerEnum.網]; 
+        GameObject Villager = VillagerPrefabs[VillagerNo - (int)VillagerEnum.網];
         var newObj = Instantiate(Villager).GetComponent<Villager>();
         newObj.transform.parent = Instance.transform;
         newObj.gameObject.SetActive(false);
         VillagerMap.Add(newObj.UnitNo, newObj);
-        
+
     }
 
     public static Villager GetVillagerObject(int VillagerNo, Vector2 pos)

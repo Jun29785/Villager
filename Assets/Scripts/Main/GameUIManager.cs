@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Numerics;
+using Define;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class GameUIManager : MonoBehaviour
 
     [Header("ObjectPool")]
     public GameObject ObjectPool;
+
+    [Header("Settings")]
+    public GameObject Settings;
 
     [Header("Shop")]
     public GameObject ShopPanel;
@@ -68,12 +72,14 @@ public class GameUIManager : MonoBehaviour
         DictCoin = DictInfo.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>();
         DictDescription = DictInfo.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>();
         #endregion
+        StartCoroutine(CheckFieldVillager());
     }
 
     private void Update()
     {
         UIText();
         GetFieldVillagerCount();
+        GetValue();
         if (canGetVillagerCoin)
         {
             canGetVillagerCoin = false;
@@ -109,13 +115,19 @@ public class GameUIManager : MonoBehaviour
         Text_VillagerCoin.text = gm.villagerCoin.ToString() + "/" + gm.limitVillagerCoin.ToString();
     }
      
+    void GetValue()
+    {
+        GameManager.Instance.limitVillagerCoin = 4 + UserDataManager.Instance.userData.ShopLevel[DataBaseManager.Instance.tdShopDict[(int)ShopEnum.ÁÖ¹Î½Ã°è].Name];
+        GameManager.Instance.limitFieldvillager = 4 + UserDataManager.Instance.userData.ShopLevel[DataBaseManager.Instance.tdShopDict[(int)ShopEnum.¸¶À»ÀÎ±¸].Name];
+    }
+
     public void ClickVillagerCoin()
     {
         var gm = GameManager.Instance;
         if (gm.villagerCoin > 0 &&gm.fieldVillager<gm.limitVillagerCoin)
         {
             // Spawn Villager
-            VillagerManager.Instance.SpawnVillager();
+            VillagerManager.Instance.SpawnVillager((int)VillagerEnum.ºô);
             GameManager.Instance.villagerCoin -= 1;
             if (!canGetVillagerCoin && GameManager.Instance.villagerCoin == GameManager.Instance.limitVillagerCoin-1)
             {
@@ -139,7 +151,7 @@ public class GameUIManager : MonoBehaviour
     private void FieldVillagerText()
     {
         var gm = GameManager.Instance;
-        Text_FieldVillager.text = gm.fieldVillager.ToString() + "/" + gm.limitVillagerCoin.ToString();
+        Text_FieldVillager.text = gm.fieldVillager.ToString() + "/" + gm.limitFieldvillager.ToString();
     }
 
     private string GetCoinText()
@@ -166,19 +178,32 @@ public class GameUIManager : MonoBehaviour
         return retStr;
     }
 
-    private void CheckFieldVillager()
+    IEnumerator CheckFieldVillager()
     {
         UserDataManager.Instance.InitCurrentVillager();
         for (int i = 0; i < ObjectPool.transform.childCount; i++)
         {
             if (ObjectPool.transform.GetChild(i).gameObject.activeSelf)
             {
-                UserDataManager.Instance.userData.CurrentVillager.Add(
-                    ObjectPool.transform.GetChild(i).GetComponent<Actor>().UnitNo, UserDataManager.Instance.userData.CurrentVillager[
-                        ObjectPool.transform.GetChild(i).GetComponent<Actor>().UnitNo]+1);
+                UserDataManager.Instance.userData.CurrentVillager[ObjectPool.transform.GetChild(i).GetComponent<Actor>().UnitNo] += 1;
             }
         }
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(CheckFieldVillager());
     }
+
+    #region Settings
+    public void OnClickSettings()
+    {
+        Settings.SetActive(true);
+    }
+
+    public void ExitSettings()
+    {
+        Settings.SetActive(false);
+    }
+    #endregion
+
     #region Shop
     public void OnClickShop()
     {

@@ -29,17 +29,11 @@ public abstract class Actor : MonoBehaviour
 
     public virtual void Update()
     {
-        if (!PlunderManager.Instance.isPlunder)
-        {
-            return;
-        }
+        
     }
 
     public virtual void FixedUpdate()
     {
-        if (!PlunderManager.Instance.isPlunder)
-        {
-            return;
-        }
+        
     }
 }
