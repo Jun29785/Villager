@@ -40,6 +40,7 @@ public class UserDataManager : Singleton<UserDataManager>
         userData.VillagerDictionary.Add("NormalVillager", true);
         InitCurrentVillager();
         InitLevel();
+        InitCropOpen();
 
         // Start Coroutine SaveData
         StartCoroutine(SaveData());
@@ -63,6 +64,15 @@ public class UserDataManager : Singleton<UserDataManager>
         foreach (var j in DataBaseManager.Instance.tdShopDict.Values)
         {
             userData.ShopLevel.Add(j.Name, 1);
+        }
+    }
+
+    void InitCropOpen()
+    {
+        userData.IsCropOpen.Clear();
+        foreach (var j in DataBaseManager.Instance.tdCropDict.Values)
+        {
+            userData.IsCropOpen.Add(j.Name, false);
         }
     }
 
