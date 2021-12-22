@@ -52,9 +52,16 @@ public class UserDataManager : Singleton<UserDataManager>
     public void InitCurrentVillager()
     {
         userData.CurrentVillager.Clear();
+        userData.FarmingVillager.Clear();
         for (int i = 0; i < DataBaseManager.Instance.tdVillagerDict.Count; i++)
         {
             userData.CurrentVillager.Add(i + (int)VillagerEnum.빌, 0);
+            userData.FarmingVillager.Add(i + (int)VillagerEnum.빌, 0);    
+        }
+        for (int j = 0; j < 6; j++)
+        {
+            if (j == 0) { userData.IsFarmOpen.Add(j, true); }
+            else { userData.IsFarmOpen.Add(j, false); }
         }
     }
 
@@ -81,12 +88,13 @@ public class UserDataManager : Singleton<UserDataManager>
         StopCoroutine(SaveData());
         if (!File.Exists(filepath)) { ResetUserData(); yield return new WaitForSeconds(0.2f); }
 
+
         // Json 파일 불러오기
         string code = File.ReadAllText(filepath);
         // Json 암호화 해독
         byte[] bytes = System.Convert.FromBase64String(code);
         string jdata = System.Text.Encoding.UTF8.GetString(bytes);
-        
+
         // Json 변환
         userData = JsonConvert.DeserializeObject<UserData>(jdata);
         yield return new WaitForSeconds(0.1f);
@@ -106,7 +114,6 @@ public class UserDataManager : Singleton<UserDataManager>
     public IEnumerator SaveDataDelay()
     {
         yield return new WaitForSecondsRealtime(1f);
-        Debug.Log("Save User Data");
         StartCoroutine(SaveData());
         StartCoroutine(SaveDataDelay());
     }

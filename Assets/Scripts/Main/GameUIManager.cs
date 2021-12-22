@@ -188,7 +188,7 @@ public class GameUIManager : MonoBehaviour
                 UserDataManager.Instance.userData.CurrentVillager[ObjectPool.transform.GetChild(i).GetComponent<Actor>().UnitNo] += 1;
             }
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(.1f);
         StartCoroutine(CheckFieldVillager());
     }
 
@@ -273,4 +273,9 @@ public class GameUIManager : MonoBehaviour
         DictInfo.SetActive(true);
     }
     #endregion
+
+    public void OnClickFarmScene()
+    {
+        SceneController.LoadScene("FarmScene");
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
-
+using Define;
 
 public class DataBaseManager : Singleton<DataBaseManager>
 {
@@ -61,6 +61,7 @@ public class DataBaseManager : Singleton<DataBaseManager>
             TDShop tdShop = new TDShop();
 
             tdShop.SetJsonData(pair.Key, pair.Value.ToObject<JObject>());
+            
             tdShopDict.Add(tdShop.Key, tdShop);
         }
         Debug.Log("상점 테이블 완료");

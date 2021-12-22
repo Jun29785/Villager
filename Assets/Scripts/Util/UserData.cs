@@ -18,4 +18,8 @@ public class UserData
     public Dictionary<string, int> ShopLevel = new Dictionary<string, int>();
 
     public Dictionary<string, bool> IsCropOpen = new Dictionary<string, bool>();
+
+    // ³óÀÛÁö ¿ÀÇÂ
+    public Dictionary<int, bool> IsFarmOpen = new Dictionary<int, bool>();
+    public Dictionary<int, int> FarmingVillager = new Dictionary<int, int>();
 }

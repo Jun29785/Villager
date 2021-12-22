@@ -16,7 +16,6 @@ public class SceneController : MonoBehaviour
 
     public static void LoadScene(string SceneName)
     {
-        nextScene = SceneName;
         UserDataManager.Instance.SaveData();
         SceneManager.LoadScene(SceneName);
     }
