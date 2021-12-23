@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using System;
 using Define;
 
 public class UserDataManager : Singleton<UserDataManager>
@@ -39,7 +40,7 @@ public class UserDataManager : Singleton<UserDataManager>
         userData.VillagerDictionary.Clear();
         userData.VillagerDictionary.Add("NormalVillager", true);
         InitCurrentVillager();
-        InitLevel();
+        Init();
         InitCropOpen();
 
         // Start Coroutine SaveData
@@ -52,25 +53,34 @@ public class UserDataManager : Singleton<UserDataManager>
     public void InitCurrentVillager()
     {
         userData.CurrentVillager.Clear();
-        userData.FarmingVillager.Clear();
         for (int i = 0; i < DataBaseManager.Instance.tdVillagerDict.Count; i++)
         {
-            userData.CurrentVillager.Add(i + (int)VillagerEnum.ºô, 0);
-            userData.FarmingVillager.Add(i + (int)VillagerEnum.ºô, 0);    
-        }
-        for (int j = 0; j < 6; j++)
-        {
-            if (j == 0) { userData.IsFarmOpen.Add(j, true); }
-            else { userData.IsFarmOpen.Add(j, false); }
+            userData.CurrentVillager.Add(i + (int)VillagerEnum.ºô, 0); 
         }
     }
 
-    void InitLevel()
+    void Init()
     {
         userData.ShopLevel.Clear();
+        userData.FarmingVillager.Clear();
+        userData.FarmingTime.Clear();
         foreach (var j in DataBaseManager.Instance.tdShopDict.Values)
         {
             userData.ShopLevel.Add(j.Name, 1);
+        }
+        for (int j = 0; j < 6; j++)
+        {
+            if (j == 0)
+            {
+                userData.IsFarmOpen.Add(j, true);
+                userData.FarmingTime.Add(j, new DateTime());
+            }
+            else
+            {
+                userData.IsFarmOpen.Add(j, false);
+                userData.FarmingTime.Add(j, new DateTime());
+            }
+            
         }
     }
 

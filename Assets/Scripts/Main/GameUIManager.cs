@@ -124,7 +124,7 @@ public class GameUIManager : MonoBehaviour
     public void ClickVillagerCoin()
     {
         var gm = GameManager.Instance;
-        if (gm.villagerCoin > 0 &&gm.fieldVillager<gm.limitVillagerCoin)
+        if (gm.villagerCoin > 0 &&gm.fieldVillager<gm.limitFieldvillager)
         {
             // Spawn Villager
             VillagerManager.Instance.SpawnVillager((int)VillagerEnum.ºô);

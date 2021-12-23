@@ -22,4 +22,5 @@ public class UserData
     // ³óÀÛÁö ¿ÀÇÂ
     public Dictionary<int, bool> IsFarmOpen = new Dictionary<int, bool>();
     public Dictionary<int, int> FarmingVillager = new Dictionary<int, int>();
+    public Dictionary<int, System.DateTime> FarmingTime = new Dictionary<int, DateTime>();
 }

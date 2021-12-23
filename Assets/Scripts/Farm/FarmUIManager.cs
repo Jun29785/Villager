@@ -17,6 +17,8 @@ public class FarmUIManager : MonoBehaviour
 
     [Header("Select")]
     public GameObject Select;
+    private Transform SelectObjParent;
+    public GameObject SelectObj;
 
     [Header("Variables")]
     BigInteger coin;
@@ -30,6 +32,7 @@ public class FarmUIManager : MonoBehaviour
     private void Start()
     {
         Text_Coin = Coin.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>();
+        SelectObjParent = Select.transform.GetChild(0).GetChild(3).GetChild(0);
     }
 
     private void Update()
@@ -88,6 +91,57 @@ public class FarmUIManager : MonoBehaviour
     public void OnClickFarmLand()
     {
         Select.SetActive(true);
+        CreateVillagerSelect();
+    }
+
+    private void CreateVillagerSelect()
+    {
+        for (int i = 0; i < SelectObjParent.childCount; i++)
+        {
+            Destroy(SelectObjParent.GetChild(i).gameObject);
+        }
+
+        foreach (var i in UserDataManager.Instance.userData.CurrentVillager)
+        {
+            if (i.Value > 0)
+            {
+                for (int j = 0; j < i.Value; j++)
+                {
+                    GameObject Create = (GameObject)Instantiate(SelectObj);
+                    Create.transform.parent = SelectObjParent;
+                    Create.transform.localScale = new UnityEngine.Vector3(1, 1, 1);
+                }
+            }
+        }
+    }
+
+    private void CreateCropSelect()
+    {
+        for (int i = 0; i < SelectObjParent.childCount; i++)
+        {
+            Destroy(SelectObjParent.GetChild(i).gameObject);
+        }
+
+        foreach (var i in UserDataManager.Instance.userData.IsCropOpen)
+        {
+            if (i.Value)
+            {
+                GameObject Create = (GameObject)Instantiate(SelectObj);
+                Create.transform.parent = SelectObjParent;
+                Create.transform.localScale = new UnityEngine.Vector3(1, 1, 1);
+
+            }
+        }
+    }
+
+    public void OnClickVillagerButton()
+    {
+        CreateVillagerSelect();
+    }
+
+    public void OnClickCropButton()
+    {
+        CreateCropSelect();
     }
 
     public void ExitSelect()

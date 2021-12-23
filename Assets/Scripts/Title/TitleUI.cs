@@ -16,7 +16,7 @@ public class TitleUI : MonoBehaviour
 
     private void Update()
     {
-        if(TitleController.allLoaded && HasName) { TapToStart.SetActive(true); }
+        if(TitleController.allLoaded && HasName) { TapToStartActive(); }
     }
 
     public void SetLoadStateDescription(IntroPhase loadState)
@@ -56,7 +56,7 @@ public class TitleUI : MonoBehaviour
 
     public void TapToStartActive()
     {
-        if (!TapToStart.activeSelf)
+        if (!TapToStart.activeSelf && !UserDataManager.Instance.NameInput.activeSelf)
         {
             TapToStart.SetActive(true);
         }
