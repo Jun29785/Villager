@@ -19,7 +19,8 @@ public class FarmLand : MonoBehaviour,IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        FarmUIManager.Instance.OnClickFarmLand();
+        if (UserDataManager.Instance.userData.IsFarmOpen[FarmNum])
+            FarmUIManager.Instance.OnClickFarmLand();
     }
 
     void SetFarmLand()
