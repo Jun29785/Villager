@@ -35,6 +35,6 @@ public class ShopUpgradeButton : MonoBehaviour, IPointerClickHandler
 
     void  ShowText()
     {
-        Text_UpgradeCost.text = Shop.Cost.ToString();
+        Text_UpgradeCost.text = GameUIManager.Instance.GetCoinText(Shop.Cost);
     }
 }

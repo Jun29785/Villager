@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class FarmaingManager : MonoBehaviour
+public class FarmManager : MonoBehaviour
 {
+   public static FarmManager Instance;
+
+    FarmVillager CurrentSelect;
+
     DateTime Now;
+
+    TimeSpan duration = new TimeSpan();
+    
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -16,5 +27,7 @@ public class FarmaingManager : MonoBehaviour
     {
         Now = DateTime.Now;
         Debug.Log("Now : " + Now.ToString("dd-hh-mm-ss"));
+        
     }
 }
+

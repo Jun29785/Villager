@@ -106,7 +106,7 @@ public class GameUIManager : MonoBehaviour
 
     private void CoinText()
     {
-        Text_Coin.text = GetCoinText();
+        Text_Coin.text = GetCoinText(coin);
     }
 
     private void VillagerCoinText()
@@ -154,10 +154,9 @@ public class GameUIManager : MonoBehaviour
         Text_FieldVillager.text = gm.fieldVillager.ToString() + "/" + gm.limitFieldvillager.ToString();
     }
 
-    private string GetCoinText()
+    public string GetCoinText(BigInteger value)
     {
-        int placeN = 4;
-        BigInteger value = coin;
+        int placeN = 4;;
         List<int> numList = new List<int>();
         int p = (int)Mathf.Pow(10, placeN);
 
@@ -170,7 +169,7 @@ public class GameUIManager : MonoBehaviour
 
         for (int i = 0; i < numList.Count; i++)
         {
-            if (i > numList.Count - 3)
+            if (i > numList.Count - 3 && retStr[-1].CompareTo("0") == 0)
             {
                 retStr = numList[i] + coinUnitArr[i]+ " " + retStr;
             }

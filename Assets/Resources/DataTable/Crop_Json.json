@@ -1,22 +1,27 @@
 {
      "30001": {
           "Name": "사과",
-          "Cost": "10000"
+          "Cost": "10000",
+          "GrowthDuration": "30000"
    },
      "30002": {
           "Name": "귤",
-          "Cost": "20000"
+          "Cost": "20000",
+          "GrowthDuration": "60000"
    },
      "30003": {
           "Name": "포도",
-          "Cost": "30000"
+          "Cost": "30000",
+          "GrowthDuration": "90000"
    },
      "30004": {
           "Name": "복숭아",
-          "Cost": "40000"
+          "Cost": "40000",
+          "GrowthDuration": "120000"
    },
      "30005": {
           "Name": "배",
-          "Cost": "50000"
+          "Cost": "50000",
+          "GrowthDuration": "150000"
    }
 }

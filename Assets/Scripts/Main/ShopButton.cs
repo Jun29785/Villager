@@ -22,9 +22,13 @@ public class ShopButton : MonoBehaviour
         var ShopDict = DataBaseManager.Instance.tdShopDict[this.Key];
 
         this.Name = ShopDict.Name;
-        this.Cost = ShopDict.Cost;
         this.Value = ShopDict.Value;
         this.Level = UserDataManager.Instance.userData.ShopLevel[this.Name.ToString()];
+        this.Cost = DataBaseManager.Instance.tdShopDict[key].Cost;
+        for (int i = 1; i < Level; i++)
+        {
+            Cost += (Cost / 2);
+        }
     }
 
     private void Start()

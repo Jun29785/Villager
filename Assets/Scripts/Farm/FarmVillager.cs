@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class FarmVillager : MonoBehaviour
+public class FarmVillager : MonoBehaviour,IPointerClickHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    public int Key;
+    public int CropTime;
+    public int CropAmount;
+
+    public void OnPointerClick(PointerEventData eventData)
     {
-        
+        Debug.Log("Click " + name);
+        // Color Change & Show Infomation
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetButton(int key)
     {
-        
+        name = key.ToString();
+        Key = key;
+        CropTime = DataBaseManager.Instance.tdVillagerDict[key].CropTime;
+        CropAmount = DataBaseManager.Instance.tdVillagerDict[key].CropAmount;
+
     }
 }
