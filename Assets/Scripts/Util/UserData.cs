@@ -9,6 +9,9 @@ public class UserData
 {
     public string UserName;
     public BigInteger Coin;
+    public int Package;
+    public bool IsOpenFarmLand;
+
     // 주민 시계 수
     public int CurrentVillagerCoin;
 
@@ -17,10 +20,12 @@ public class UserData
     public Dictionary<int, int> CurrentVillager = new Dictionary<int, int>(); // <"고유번호", "개수">
     public Dictionary<string, int> ShopLevel = new Dictionary<string, int>();
 
-    public Dictionary<string, bool> IsCropOpen = new Dictionary<string, bool>();
+    public Dictionary<int, bool> IsCropOpen = new Dictionary<int, bool>();
 
     // 농작지 오픈
     public Dictionary<int, bool> IsFarmOpen = new Dictionary<int, bool>();
-    public Dictionary<int, int> FarmingVillager = new Dictionary<int, int>();
-    public Dictionary<int, System.DateTime> FarmingTime = new Dictionary<int, DateTime>();
+    public Dictionary<int, string> EndFarmingTime = new Dictionary<int, string>();
+    public Dictionary<int, int> FarmPackageAmount = new Dictionary<int, int>();
+    public Dictionary<int, int> SelectedVillager = new Dictionary<int, int>();
+    public Dictionary<int, int> SelectedCrop = new Dictionary<int, int>();
 }

@@ -34,11 +34,14 @@ public class GameUIManager : MonoBehaviour
     private TMPro.TextMeshProUGUI DictCoin;
     private TMPro.TextMeshProUGUI DictDescription;
 
+    [Header("FarmLand")]
+    public GameObject OpenFarmLand;
+
     bool canGetVillagerCoin = true;
 
     string[] coinUnitArr = new string[] { "", "만", "억", "조", "경", "해", "자", "양", "가", "구", "간" };
     BigInteger coin;
-    
+
     IEnumerator GetVillagerCoin(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -114,7 +117,7 @@ public class GameUIManager : MonoBehaviour
         var gm = GameManager.Instance;
         Text_VillagerCoin.text = gm.villagerCoin.ToString() + "/" + gm.limitVillagerCoin.ToString();
     }
-     
+
     void GetValue()
     {
         GameManager.Instance.limitVillagerCoin = 4 + UserDataManager.Instance.userData.ShopLevel[DataBaseManager.Instance.tdShopDict[(int)ShopEnum.주민시계].Name];
@@ -124,19 +127,19 @@ public class GameUIManager : MonoBehaviour
     public void ClickVillagerCoin()
     {
         var gm = GameManager.Instance;
-        if (gm.villagerCoin > 0 &&gm.fieldVillager<gm.limitFieldvillager)
+        if (gm.villagerCoin > 0 && gm.fieldVillager < gm.limitFieldvillager)
         {
             // Spawn Villager
             VillagerManager.Instance.SpawnVillager((int)VillagerEnum.빌);
             GameManager.Instance.villagerCoin -= 1;
-            if (!canGetVillagerCoin && GameManager.Instance.villagerCoin == GameManager.Instance.limitVillagerCoin-1)
+            if (!canGetVillagerCoin && GameManager.Instance.villagerCoin == GameManager.Instance.limitVillagerCoin - 1)
             {
                 canGetVillagerCoin = true;
             }
         }
         StartCoroutine(UserDataManager.Instance.SaveDataDelay());
     }
-    
+
     private void GetFieldVillagerCount()
     {
         int count = 0;
@@ -156,7 +159,7 @@ public class GameUIManager : MonoBehaviour
 
     public string GetCoinText(BigInteger value)
     {
-        int placeN = 4;;
+        int placeN = 4;
         List<int> numList = new List<int>();
         int p = (int)Mathf.Pow(10, placeN);
 
@@ -169,9 +172,9 @@ public class GameUIManager : MonoBehaviour
 
         for (int i = 0; i < numList.Count; i++)
         {
-            if (i > numList.Count - 3 && retStr[-1].CompareTo("0") == 0)
+            if (i > numList.Count - 3)
             {
-                retStr = numList[i] + coinUnitArr[i]+ " " + retStr;
+                retStr = numList[i] + coinUnitArr[i] + " " + retStr;
             }
         }
         return retStr;
@@ -212,7 +215,7 @@ public class GameUIManager : MonoBehaviour
 
     private void CreateShop()
     {
-        for (int i = 0; i<ShopObjParent.childCount; i++)
+        for (int i = 0; i < ShopObjParent.childCount; i++)
         {
             Destroy(ShopObjParent.GetChild(i).gameObject);
         }
@@ -273,8 +276,40 @@ public class GameUIManager : MonoBehaviour
     }
     #endregion
 
+    #region FarmScene
     public void OnClickFarmScene()
     {
-        SceneController.LoadScene("FarmScene");
+        if (UserDataManager.Instance.userData.IsOpenFarmLand)
+            SceneController.LoadScene("FarmScene");
+        else
+        {
+            OpenFarmLand.SetActive(true);
+        }
     }
+
+    public void BuyFarmTicket()
+    {
+        if (coin > 10000000)
+        {
+            if (!(UserDataManager.Instance.userData.ShopLevel[DataBaseManager.Instance.tdShopDict[20005].Name] > 0))
+            {
+                // Erorr Text (작물을 업그레이드 해야됩니다.)
+                return;
+            }
+            UserDataManager.Instance.userData.Coin -= 10000000;
+            UserDataManager.Instance.userData.IsOpenFarmLand = true;
+            OpenFarmLand.SetActive(false);
+            OnClickFarmScene();
+        }
+        else
+        {
+            // Error Text
+        }
+    }
+
+    public void CancelFarmTicket()
+    {
+        OpenFarmLand.SetActive(false);
+    }
+    #endregion
 }

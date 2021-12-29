@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Numerics;
+using System;
 
 public class FarmLand : MonoBehaviour,IPointerClickHandler
 {
@@ -11,16 +12,16 @@ public class FarmLand : MonoBehaviour,IPointerClickHandler
     public int FarmNum;
     private BigInteger Cost;
     public string cost;
-
+    public TimeSpan Duration;
     private void Start()
     {
         Cost = BigInteger.Parse(cost);
+        
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (UserDataManager.Instance.userData.IsFarmOpen[FarmNum])
-            FarmUIManager.Instance.OnClickFarmLand();
+        FarmUIManager.Instance.FarmLand(FarmNum);
     }
 
     void SetFarmLand()

@@ -22,6 +22,15 @@ namespace Define
         ³óÀÛ¹°¼ºÀå
     }
 
+    public enum CropEnum
+    {
+        »ç°ú=30001,
+        ±Ö,
+        Æ÷µµ,
+        º¹¼þ¾Æ,
+        ¹è
+    }
+
     public enum IntroPhase
     {
         Start,
@@ -29,5 +38,13 @@ namespace Define
         UserData,
         ApplicationSetting,
         Complete
+    }
+
+    public enum Growth
+    {
+        Wait,
+        Start,
+        Growth,
+        Get
     }
 }
