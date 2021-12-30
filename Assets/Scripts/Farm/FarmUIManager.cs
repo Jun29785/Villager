@@ -237,18 +237,18 @@ public class FarmUIManager : MonoBehaviour
 
         if (ts.Hours > 0)
         {
-            Timer += ts.Hours + ":";
-            Timer += ts.Minutes + ":";
-            Timer += ts.Seconds;
+            Timer += ts.Hours.ToString("00") + ":";
+            Timer += ts.Minutes.ToString("00") + ":";
+            Timer += ts.Seconds.ToString("00");
         }
         else if (ts.Minutes>0)
         {
-            Timer += ts.Minutes + ":";
-            Timer += ts.Seconds;
+            Timer += ts.Minutes.ToString("00") + ":";
+            Timer += ts.Seconds.ToString("00");
         }
         else if (ts.Seconds > 0)
         {
-            Timer += ts.Seconds;
+            Timer += ts.Seconds.ToString("00");
         }
         else
         {
