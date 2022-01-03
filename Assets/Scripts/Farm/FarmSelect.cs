@@ -12,6 +12,14 @@ public class FarmSelect : MonoBehaviour, IPointerClickHandler
     public int Duration;
     public int Cost;
 
+    [Header("Values")]
+    private TMPro.TextMeshProUGUI Text_Name;
+
+    private void OnEnable()
+    {
+        Text_Name = transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clicked Select Button : " + Name);
@@ -35,5 +43,7 @@ public class FarmSelect : MonoBehaviour, IPointerClickHandler
             Amount = DataBaseManager.Instance.tdCropDict[Key].Amount;
             Duration = DataBaseManager.Instance.tdCropDict[Key].GrowthDuration;
         }
+
+        Text_Name.text = Name;
     }
 }

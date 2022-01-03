@@ -10,22 +10,17 @@ public class FarmLand : MonoBehaviour,IPointerClickHandler
     [Header("State")]
     private bool IsLock;
     public int FarmNum;
-    private BigInteger Cost;
+    public BigInteger Cost;
     public string cost;
     public TimeSpan Duration;
     private void Start()
     {
         Cost = BigInteger.Parse(cost);
-        
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        FarmUIManager.Instance.Fmanager.GetComponent<FarmManager>().FL = this;
         FarmUIManager.Instance.FarmLand(FarmNum);
-    }
-
-    void SetFarmLand()
-    {
-        
     }
 }

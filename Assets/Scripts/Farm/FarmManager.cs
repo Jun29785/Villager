@@ -7,6 +7,7 @@ public class FarmManager : MonoBehaviour
 {
     public FarmSelect CurrentSelectVillager = null;
     public FarmSelect CurrentSelectCrop = null;
+    public FarmLand FL;
     public DateTime Now;
     public FarmSelected Selected;
 

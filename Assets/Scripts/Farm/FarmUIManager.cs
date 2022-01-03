@@ -21,6 +21,11 @@ public class FarmUIManager : MonoBehaviour
 
     [Header("Settings")]
     public GameObject Settings;
+    public GameObject ShopObj;
+    
+    [Header("FarmLand")]
+    public GameObject FarmPurchase;
+    private TMPro.TextMeshProUGUI Text_FarmCost;
 
     [Header("Select")]
     public GameObject Select;
@@ -47,11 +52,12 @@ public class FarmUIManager : MonoBehaviour
     {
         #region FindObj
         Text_Coin = Coin.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>();
-        SelectObjParent = Select.transform.GetChild(0).GetChild(3).GetChild(0);
-        Text_Timer = Select.transform.GetChild(0).GetChild(4).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-        Text_SelectedVillager = Select.transform.GetChild(0).GetChild(6).GetComponent<TMPro.TextMeshProUGUI>();
-        Text_SelectedCrop = Select.transform.GetChild(0).GetChild(7).GetComponent<TMPro.TextMeshProUGUI>();
+        SelectObjParent = Select.transform.GetChild(0).GetChild(4).GetChild(0);
+        Text_Timer = Select.transform.GetChild(0).GetChild(5).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+        Text_SelectedVillager = Select.transform.GetChild(0).GetChild(7).GetComponent<TMPro.TextMeshProUGUI>();
+        Text_SelectedCrop = Select.transform.GetChild(0).GetChild(8).GetComponent<TMPro.TextMeshProUGUI>();
         Selected = Select.transform.GetChild(1).gameObject;
+        Text_FarmCost = FarmPurchase.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>();
         #endregion
     }
 
@@ -291,14 +297,14 @@ public class FarmUIManager : MonoBehaviour
             UserDataManager.Instance.userData.CurrentVillager[Key] -= 1;
             Debug.Log("move");
             fs.transform.parent = Selected.transform;
-            fs.gameObject.SetActive(false);
-            
+            fs.gameObject.SetActive(false);   
         }
         else if (Key > 30000 && Key < 40000)
         {
             if (Selected.GetComponent<FarmSelected>().Crop != null) return;
             UserDataManager.Instance.userData.SelectedCrop[Fmanager.GetComponent<FarmManager>().CurrentFarmNumber] = Key;
             fs.transform.parent = Selected.transform;
+            fs.gameObject.SetActive(false);
         }
     }
 
@@ -327,6 +333,29 @@ public class FarmUIManager : MonoBehaviour
                 i.SetActive(false);
             }
         }
+        else
+        {
+            FarmPurchase.SetActive(true);
+            // text
+
+            Fmanager.GetComponent<FarmManager>().CurrentFarmNumber = FarmNum;
+        }
+    }
+
+    public void OnClickPurchaseFarmLand()
+    {
+        var fl = Fmanager.GetComponent<FarmManager>().FL;
+        if (fl.Cost > UserDataManager.Instance.userData.Coin)
+        {
+            UserDataManager.Instance.userData.Coin -= fl.Cost;
+            UserDataManager.Instance.userData.IsFarmOpen[fl.FarmNum] = true;
+            StartCoroutine(UserDataManager.Instance.SaveData());
+        }
+    }
+
+    public void OnClickPurchaseCancel()
+    {
+        FarmPurchase.SetActive(false);
     }
 
     public void ExitSelect()
@@ -347,5 +376,15 @@ public class FarmUIManager : MonoBehaviour
     public void OnClickGoVillage()
     {
         SceneController.LoadScene("MainScene");
+    }
+
+    public void OnClickShop()
+    {
+        ShopObj.SetActive(true);
+    }
+
+    public void OnClickExitShop()
+    {
+        ShopObj.SetActive(false);
     }
 }

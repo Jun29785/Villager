@@ -1306,7 +1306,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_SizeDelta: {x: 80, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1306945305
 CanvasRenderer:
@@ -1657,7 +1657,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userData:
     UserName: 
-    CurrentGoblinCoin: 0
+    Package: 0
+    IsOpenFarmLand: 0
+    CurrentVillagerCoin: 0
   NameInput: {fileID: 996582127}
 --- !u!4 &1467851793
 Transform:
@@ -1841,6 +1843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleController: {fileID: 270134851}
+  PointerPosition: {x: 0, y: 0}
 --- !u!4 &1889804050
 Transform:
   m_ObjectHideFlags: 0
