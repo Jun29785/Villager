@@ -29,19 +29,17 @@ public class DataBaseManager : Singleton<DataBaseManager>
     void LoadVillagerTable()
     {
         TextAsset jsonText = Resources.Load<TextAsset>("DataTable/Villager_Json");
-
+        
         tdVillagerDict.Clear();
         
         JObject parseObj = new JObject();
-
         parseObj = JObject.Parse(jsonText.text);
-
         foreach(KeyValuePair<string,JToken> pair in parseObj)
         {
             TDVillager tdVillager = new TDVillager();
-
             tdVillager.SetJsonData(pair.Key, pair.Value.ToObject<JObject>());
             tdVillagerDict.Add(tdVillager.unitNo, tdVillager);
+
         }
         Debug.Log("주민 테이블 완료");
     }

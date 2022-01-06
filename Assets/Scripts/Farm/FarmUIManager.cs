@@ -17,11 +17,13 @@ public class FarmUIManager : MonoBehaviour
     [Header("Text")]
     public GameObject Coin;
     private TMPro.TextMeshProUGUI Text_Coin;
-    private TMPro.TextMeshProUGUI Text_Package; // 수확된 꾸러미
+    private TMPro.TextMeshProUGUI Text_Flower; // 수확된 꾸러미
+    private TMPro.TextMeshProUGUI Text_Package;
 
     [Header("Settings")]
     public GameObject Settings;
     public GameObject ShopObj;
+
     
     [Header("FarmLand")]
     public GameObject FarmPurchase;
@@ -51,13 +53,15 @@ public class FarmUIManager : MonoBehaviour
     private void Start()
     {
         #region FindObj
-        Text_Coin = Coin.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>();
+        Text_Coin = Coin.transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+        Text_Flower = Coin.transform.GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
         SelectObjParent = Select.transform.GetChild(0).GetChild(4).GetChild(0);
         Text_Timer = Select.transform.GetChild(0).GetChild(5).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
         Text_SelectedVillager = Select.transform.GetChild(0).GetChild(7).GetComponent<TMPro.TextMeshProUGUI>();
         Text_SelectedCrop = Select.transform.GetChild(0).GetChild(8).GetComponent<TMPro.TextMeshProUGUI>();
         Selected = Select.transform.GetChild(1).gameObject;
-        Text_FarmCost = FarmPurchase.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>();
+        Text_FarmCost = FarmPurchase.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>();
+        Text_Package = ShopObj.transform.GetChild(2).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
         #endregion
     }
 
@@ -103,6 +107,7 @@ public class FarmUIManager : MonoBehaviour
     void CoinText()
     {
         Text_Coin.text = GetCoinText(coin);
+        Text_Flower.text = GetCoinText(UserDataManager.Instance.userData.Flower);
     }
 
     #region Settings
@@ -132,6 +137,7 @@ public class FarmUIManager : MonoBehaviour
         if (grow == Growth.Get)
         {
             Debug.Log("1");
+            UserDataManager.Instance.userData.Package += 1;
             // 수확
             UserDataManager.Instance.userData.EndFarmingTime[Key] = "";
             UserDataManager.Instance.userData.SelectedCrop[Key] = 0;
@@ -272,11 +278,11 @@ public class FarmUIManager : MonoBehaviour
         var Sd = Selected.GetComponent<FarmSelected>();
         if (Sd.Crop != null)
         {
-            Text_SelectedCrop.text = "작물 : " + DataBaseManager.Instance.tdCropDict[Sd.Crop.Key].Name;
+            Text_SelectedCrop.text = "꽃 : " + DataBaseManager.Instance.tdCropDict[Sd.Crop.Key].Name;
         }
         else
         {
-            Text_SelectedCrop.text = "작물 : 선택 안됨";
+            Text_SelectedCrop.text = "꽃 : 선택 안됨";
         }
         if (Sd.Villager != null)
         {
@@ -308,7 +314,7 @@ public class FarmUIManager : MonoBehaviour
         }
     }
 
-    public void FarmLand(int FarmNum)
+    public void FarmLand(int FarmNum, FarmLand land)
     {
         if (UserDataManager.Instance.userData.IsFarmOpen[FarmNum])
         {
@@ -337,7 +343,7 @@ public class FarmUIManager : MonoBehaviour
         {
             FarmPurchase.SetActive(true);
             // text
-
+            Text_FarmCost.text = GetCoinText(land.Cost);
             Fmanager.GetComponent<FarmManager>().CurrentFarmNumber = FarmNum;
         }
     }
@@ -345,11 +351,14 @@ public class FarmUIManager : MonoBehaviour
     public void OnClickPurchaseFarmLand()
     {
         var fl = Fmanager.GetComponent<FarmManager>().FL;
-        if (fl.Cost > UserDataManager.Instance.userData.Coin)
+        if (fl.Cost < UserDataManager.Instance.userData.Coin)
         {
             UserDataManager.Instance.userData.Coin -= fl.Cost;
             UserDataManager.Instance.userData.IsFarmOpen[fl.FarmNum] = true;
             StartCoroutine(UserDataManager.Instance.SaveData());
+            Debug.Log("Buy");
+            FarmPurchase.SetActive(false);
+            FarmLand(fl.FarmNum,fl);
         }
     }
 
@@ -364,11 +373,15 @@ public class FarmUIManager : MonoBehaviour
         if (UserDataManager.Instance.userData.EndFarmingTime[FM] == "")
         {
             // Selected child Remove
-            Selected.GetComponent<FarmSelected>().ResetChild();
+            var i = Selected.GetComponent<FarmSelected>().Villager;
+            if (Selected.GetComponent<FarmSelected>().Villager != null)
+                UserDataManager.Instance.userData.CurrentVillager[i.Key] += 1;
             Debug.Log("Reset Select");
             UserDataManager.Instance.userData.SelectedCrop[FM] = 0;
             UserDataManager.Instance.userData.SelectedVillager[FM] = 0;
         }
+        Selected.GetComponent<FarmSelected>().ResetChild();
+        StartCoroutine(UserDataManager.Instance.SaveData());
         Select.SetActive(false);
     }
     #endregion
@@ -380,7 +393,13 @@ public class FarmUIManager : MonoBehaviour
 
     public void OnClickShop()
     {
+        updatepkgTx();
         ShopObj.SetActive(true);
+    }
+
+    public void updatepkgTx()
+    {
+        Text_Package.text = GetCoinText(UserDataManager.Instance.userData.Package);
     }
 
     public void OnClickExitShop()

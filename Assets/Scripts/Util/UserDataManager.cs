@@ -13,7 +13,6 @@ public class UserDataManager : Singleton<UserDataManager>
     public GameObject   NameInput;
 
     string              filepath;
-
     protected override void Awake()
     {
         base.Awake();
@@ -35,9 +34,10 @@ public class UserDataManager : Singleton<UserDataManager>
     {
         //init UserData
         NameInput.SetActive(true);
-        userData.Coin = 100000000000000000;
+        userData.Coin = 0;
         userData.Package = 0;
-        userData.IsOpenFarmLand = false;
+        userData.Flower = 0;    
+        userData.IsOpenFarmLand = true;
         userData.CurrentVillagerCoin = 0;
         userData.VillagerDictionary.Clear();
         InitCurrentVillager();
@@ -56,7 +56,7 @@ public class UserDataManager : Singleton<UserDataManager>
         userData.CurrentVillager.Clear();
         for (int i = 0; i < DataBaseManager.Instance.tdVillagerDict.Count; i++)
         {
-            userData.CurrentVillager.Add(i + (int)VillagerEnum.ºô, 0); 
+            userData.CurrentVillager.Add(i + (int)VillagerEnum.Çöºó, 0); 
         }
     }
 

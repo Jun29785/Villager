@@ -17,7 +17,6 @@ public class TDVillager : TableBase
     public override void SetJsonData(string key, JObject info)
     {
         base.SetJsonData(key, info);
-
         unitNo = int.Parse(key);
         Name = info["Name"].Value<string>();
         GetCoin = info["GetCoin"].Value<int>();

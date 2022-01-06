@@ -1,30 +1,30 @@
 {
      "30001": {
-          "Name": "사과",
+          "Name": "민들레",
           "Cost": "10000",
           "GrowthDuration": "30",
           "Amount": "1"
    },
      "30002": {
-          "Name": "귤",
+          "Name": "튤립",
           "Cost": "20000",
           "GrowthDuration": "60",
           "Amount": "2"
    },
      "30003": {
-          "Name": "포도",
+          "Name": "해바라기",
           "Cost": "30000",
           "GrowthDuration": "90",
           "Amount": "3"
    },
      "30004": {
-          "Name": "복숭아",
+          "Name": "나팔꽃",
           "Cost": "40000",
           "GrowthDuration": "120",
           "Amount": "4"
    },
      "30005": {
-          "Name": "배",
+          "Name": "동백꽃",
           "Cost": "50000",
           "GrowthDuration": "150",
           "Amount": "5"

@@ -1,6 +1,6 @@
 {
      "10001": {
-          "Name": "빌",
+          "Name": "현빈",
           "GetCoin": "10",
           "CropTime": "120",
           "CropAmount": "100",
@@ -8,7 +8,7 @@
           "Description": "심상치 않은 주민이다."
    },
      "10002": {
-          "Name": "스티브",
+          "Name": "승원",
           "GetCoin": "20",
           "CropTime": "115",
           "CropAmount": "200",
@@ -16,7 +16,7 @@
           "Description": "심상치 않은 주민이다."
    },
      "10003": {
-          "Name": "알렉스",
+          "Name": "현승",
           "GetCoin": "30",
           "CropTime": "110",
           "CropAmount": "300",
@@ -24,11 +24,131 @@
           "Description": "심상치 않은 주민이다."
    },
      "10004": {
-          "Name": "안나",
+          "Name": "현욱",
           "GetCoin": "40",
           "CropTime": "105",
           "CropAmount": "400",
           "CombineCoin": "200",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10005": {
+          "Name": "명직",
+          "GetCoin": "50",
+          "CropTime": "100",
+          "CropAmount": "500",
+          "CombineCoin": "250",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10006": {
+          "Name": "시훈",
+          "GetCoin": "60",
+          "CropTime": "95",
+          "CropAmount": "600",
+          "CombineCoin": "300",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10007": {
+          "Name": "동현",
+          "GetCoin": "70",
+          "CropTime": "90",
+          "CropAmount": "700",
+          "CombineCoin": "350",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10008": {
+          "Name": "가성",
+          "GetCoin": "80",
+          "CropTime": "85",
+          "CropAmount": "800",
+          "CombineCoin": "400",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10009": {
+          "Name": "희상",
+          "GetCoin": "90",
+          "CropTime": "80",
+          "CropAmount": "900",
+          "CombineCoin": "450",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10010": {
+          "Name": "현호",
+          "GetCoin": "100",
+          "CropTime": "75",
+          "CropAmount": "1000",
+          "CombineCoin": "500",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10011": {
+          "Name": "은성",
+          "GetCoin": "110",
+          "CropTime": "70",
+          "CropAmount": "1100",
+          "CombineCoin": "550",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10012": {
+          "Name": "영재",
+          "GetCoin": "120",
+          "CropTime": "65",
+          "CropAmount": "1200",
+          "CombineCoin": "600",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10013": {
+          "Name": "진형",
+          "GetCoin": "130",
+          "CropTime": "60",
+          "CropAmount": "1300",
+          "CombineCoin": "650",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10014": {
+          "Name": "도현",
+          "GetCoin": "140",
+          "CropTime": "55",
+          "CropAmount": "1400",
+          "CombineCoin": "700",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10015": {
+          "Name": "성길",
+          "GetCoin": "150",
+          "CropTime": "50",
+          "CropAmount": "1500",
+          "CombineCoin": "750",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10016": {
+          "Name": "성현",
+          "GetCoin": "160",
+          "CropTime": "45",
+          "CropAmount": "1600",
+          "CombineCoin": "800",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10017": {
+          "Name": "재만",
+          "GetCoin": "170",
+          "CropTime": "40",
+          "CropAmount": "1700",
+          "CombineCoin": "850",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10018": {
+          "Name": "시완",
+          "GetCoin": "180",
+          "CropTime": "35",
+          "CropAmount": "1800",
+          "CombineCoin": "900",
+          "Description": "심상치 않은 주민이다."
+   },
+     "10019": {
+          "Name": "승민",
+          "GetCoin": "190",
+          "CropTime": "30",
+          "CropAmount": "1900",
+          "CombineCoin": "950",
           "Description": "심상치 않은 주민이다."
    }
 }

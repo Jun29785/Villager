@@ -25,10 +25,33 @@ public class ShopButton : MonoBehaviour
         this.Value = ShopDict.Value;
         this.Level = UserDataManager.Instance.userData.ShopLevel[this.Name.ToString()];
         this.Cost = DataBaseManager.Instance.tdShopDict[key].Cost;
-        for (int i = 1; i < Level; i++)
+        switch (key)
         {
-            Cost += (Cost / 2);
-        }
+            case 20003:
+                for (int i = 1; i < Level; i++)
+                {
+                    Cost += (Cost * 3);
+                }
+                break;
+            case 20004:
+                for (int i = 1; i < Level; i++)
+                {
+                    Cost += (Cost * 3);
+                }
+                break;
+            case 20005:
+                for (int i = 1; i < Level; i++)
+                {
+                    Cost += (Cost * 5);
+                }
+                break;
+            default:
+                for (int i = 1; i < Level; i++)
+                {
+                    Cost += (Cost * 2);
+                }
+                break;
+        }   
     }
 
     private void Start()

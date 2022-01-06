@@ -11,6 +11,7 @@ public class GameUIManager : MonoBehaviour
 
     [Header("Text")]
     public TMPro.TextMeshProUGUI Text_Coin;
+    public TMPro.TextMeshProUGUI Text_Rose;
     public TMPro.TextMeshProUGUI Text_VillagerCoin;
     public TMPro.TextMeshProUGUI Text_FieldVillager;
 
@@ -88,6 +89,7 @@ public class GameUIManager : MonoBehaviour
             canGetVillagerCoin = false;
             StartCoroutine(GetVillagerCoin(GameManager.Instance.villagerCoinDelay));
         }
+        GameManager.Instance.villagerCoinDelay = 8.5f - (float)(UserDataManager.Instance.userData.ShopLevel[DataBaseManager.Instance.tdShopDict[(int)ShopEnum.주민시계속도].Name] * 0.5);
         coin = UserDataManager.Instance.userData.Coin;
         UserDataManager.Instance.userData.CurrentVillagerCoin = GameManager.Instance.villagerCoin;
     }
@@ -110,6 +112,7 @@ public class GameUIManager : MonoBehaviour
     private void CoinText()
     {
         Text_Coin.text = GetCoinText(coin);
+        Text_Rose.text = GetCoinText(UserDataManager.Instance.userData.Flower);
     }
 
     private void VillagerCoinText()
@@ -130,7 +133,7 @@ public class GameUIManager : MonoBehaviour
         if (gm.villagerCoin > 0 && gm.fieldVillager < gm.limitFieldvillager)
         {
             // Spawn Villager
-            VillagerManager.Instance.SpawnVillager((int)VillagerEnum.빌);
+            VillagerManager.Instance.SpawnVillager((int)VillagerEnum.현빈);
             GameManager.Instance.villagerCoin -= 1;
             if (!canGetVillagerCoin && GameManager.Instance.villagerCoin == GameManager.Instance.limitVillagerCoin - 1)
             {
@@ -289,14 +292,14 @@ public class GameUIManager : MonoBehaviour
 
     public void BuyFarmTicket()
     {
-        if (coin > 10000000)
+        if (coin > 300000)
         {
             if (!(UserDataManager.Instance.userData.ShopLevel[DataBaseManager.Instance.tdShopDict[20005].Name] > 0))
             {
                 // Erorr Text (작물을 업그레이드 해야됩니다.)
                 return;
             }
-            UserDataManager.Instance.userData.Coin -= 10000000;
+            UserDataManager.Instance.userData.Coin -= 300000;
             UserDataManager.Instance.userData.IsOpenFarmLand = true;
             OpenFarmLand.SetActive(false);
             OnClickFarmScene();

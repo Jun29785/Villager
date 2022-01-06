@@ -12,6 +12,7 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
     Vector2 Pointer;
     float DragSpeed;
     bool CanCombine;
+
     public override void Awake()
     {
         base.Awake();
@@ -85,7 +86,8 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
                 break;
             }
         }
-        yield return new WaitForSeconds(4.5f);
+        float t = Random.RandomRange(3f, 6f);
+        yield return new WaitForSeconds(t);
         StartCoroutine(Move());
     }
 

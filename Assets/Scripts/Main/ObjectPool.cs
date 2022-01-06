@@ -69,16 +69,16 @@ public class Objectpool : MonoBehaviour
     {
         for (int i = 0; i < DataBaseManager.Instance.tdVillagerDict.Count; i++)
         {
-            CreateNewVillagers((int)VillagerEnum.ºô + i);
+            CreateNewVillagers((int)VillagerEnum.Çöºó + i);
         }
         var vil = UserDataManager.Instance.userData.CurrentVillager;
 
         for(int j = 0; j<vil.Count; j++)
         {
-            while (vil[(int)VillagerEnum.ºô+j] > 0)
+            while (vil[(int)VillagerEnum.Çöºó+j] > 0)
             {
-                VillagerManager.Instance.SpawnVillager((int)VillagerEnum.ºô + j);
-                vil[(int)VillagerEnum.ºô + j]--;
+                VillagerManager.Instance.SpawnVillager((int)VillagerEnum.Çöºó + j);
+                vil[(int)VillagerEnum.Çöºó + j]--;
             }
         }
     }
@@ -88,7 +88,7 @@ public class Objectpool : MonoBehaviour
     /// </summary>
     private void CreateNewVillagers(int VillagerNo)
     {
-        GameObject Villager = VillagerPrefabs[VillagerNo - (int)VillagerEnum.ºô];
+        GameObject Villager = VillagerPrefabs[VillagerNo - (int)VillagerEnum.Çöºó];
         var newObj = Instantiate(Villager).GetComponent<Villager>();
         newObj.transform.parent = Instance.transform;
         newObj.gameObject.SetActive(false);

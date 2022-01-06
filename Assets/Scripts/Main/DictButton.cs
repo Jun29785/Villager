@@ -14,6 +14,14 @@ public class DictButton : MonoBehaviour, IPointerClickHandler
     public int CombineCoin;
     public string Description;
 
+    private TMPro.TextMeshProUGUI tx;
+
+    private void OnEnable()
+    {
+
+        tx = transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         GameUIManager.Instance.OnClickDictButton(this);
@@ -31,5 +39,6 @@ public class DictButton : MonoBehaviour, IPointerClickHandler
         this.CropAmount = VillagerDict.CropAmount;
         this.CombineCoin = VillagerDict.CombineCoin;
         this.Description = VillagerDict.Description;
+        tx.text = Name;
     }
 }

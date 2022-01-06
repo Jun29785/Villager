@@ -21,6 +21,6 @@ public class FarmLand : MonoBehaviour,IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         FarmUIManager.Instance.Fmanager.GetComponent<FarmManager>().FL = this;
-        FarmUIManager.Instance.FarmLand(FarmNum);
+        FarmUIManager.Instance.FarmLand(FarmNum,this);
     }
 }

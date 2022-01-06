@@ -10,6 +10,7 @@ public class UserData
     public string UserName;
     public BigInteger Coin;
     public int Package;
+    public int Flower;
     public bool IsOpenFarmLand;
 
     // аж╧н ╫ц╟Х ╪Ж
