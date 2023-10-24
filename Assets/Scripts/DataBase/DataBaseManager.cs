@@ -39,7 +39,6 @@ public class DataBaseManager : Singleton<DataBaseManager>
             TDVillager tdVillager = new TDVillager();
             tdVillager.SetJsonData(pair.Key, pair.Value.ToObject<JObject>());
             tdVillagerDict.Add(tdVillager.unitNo, tdVillager);
-
         }
         Debug.Log("주민 테이블 완료");
     }

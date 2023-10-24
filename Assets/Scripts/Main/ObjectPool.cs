@@ -89,8 +89,7 @@ public class Objectpool : MonoBehaviour
     private void CreateNewVillagers(int VillagerNo)
     {
         GameObject Villager = VillagerPrefabs[VillagerNo - (int)VillagerEnum.Çöºó];
-        var newObj = Instantiate(Villager).GetComponent<Villager>();
-        newObj.transform.parent = Instance.transform;
+        var newObj = Instantiate(Villager,Instance.transform).GetComponent<Villager>();
         newObj.gameObject.SetActive(false);
         VillagerMap.Add(newObj.UnitNo, newObj);
 

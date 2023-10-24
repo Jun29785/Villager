@@ -71,7 +71,7 @@ public class GameUIManager : MonoBehaviour
     {
         #region Find Object
         ShopObjParent = ShopPanel.transform.GetChild(0).GetChild(0);
-        DictObjParent = DictPanel.transform.GetChild(1).GetChild(0);
+        DictObjParent = DictPanel.transform.GetChild(1).GetChild(0).GetChild(0);
         DictName = DictInfo.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>();
         DictCoin = DictInfo.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>();
         DictDescription = DictInfo.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>();
@@ -256,8 +256,7 @@ public class GameUIManager : MonoBehaviour
         foreach (var i in DataBaseManager.Instance.tdVillagerDict.Values)
         {
             Debug.Log("in");
-            GameObject Create = (GameObject)Instantiate(DictObj);
-            Create.transform.parent = DictObjParent;
+            GameObject Create = Instantiate(DictObj,DictObjParent);
             Create.transform.localScale = new UnityEngine.Vector3(1, 1, 1);
             Debug.Log("UnitNo : " + i.unitNo);
             Create.GetComponent<DictButton>().SetButton(i.unitNo);

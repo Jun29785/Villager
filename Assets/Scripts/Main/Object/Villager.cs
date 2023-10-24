@@ -167,7 +167,7 @@ public class Villager : Actor, IDragHandler, IPointerDownHandler, IDropHandler
 
     int GetCoinAmount()
     {
-        var td = DataBaseManager.Instance.tdShopDict[(int)ShopEnum.°ñµåÈ¹µæ·®];
+        var td = DataBaseManager.Instance.tdShopDict[(int)ShopEnum.ê³¨ë“œíšë“ëŸ‰];
         float value = (float)((UserDataManager.Instance.userData.ShopLevel[td.Name] * td.Value) / 10f + 1f) * GetCoin;
         return (int)value;
     }
